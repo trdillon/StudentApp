@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Student App</string>
-    <string name="home_button">Home Button</string>
-    <string name="student_app">Student App</string>
+    <string name="student_app">Home</string>
     <string name="terms">Terms</string>
     <string name="courses">Courses</string>
     <string name="assessments">Assessments</string>
     <string name="mentors">Mentors</string>
+    <string name="term_list">Terms</string>
 </resources>
