@@ -11,4 +11,12 @@
     <dimen name="detail_label_width">180dp</dimen>
     <dimen name="detail_text_size">25sp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="icon_size_35">35dp</dimen>
+    <dimen name="icon_size_40">40dp</dimen>
+    <dimen name="home_icon_margin_start">4dp</dimen>
+    <dimen name="home_icon_margin_top">12dp</dimen>
+    <dimen name="title_margin_start">140dp</dimen>
+    <dimen name="title_margin_top">16dp</dimen>
+    <dimen name="save_icon_margin_end">4dp</dimen>
+    <dimen name="save_icon_margin_top">12dp</dimen>
 </resources>
