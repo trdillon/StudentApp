@@ -7,4 +7,8 @@
     <dimen name="main_cardview_text_padding">20dp</dimen>
     <dimen name="main_cardview_text_size">25sp</dimen>
     <dimen name="main_cardview_layout_margin_startend">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="detail_label_width">180dp</dimen>
+    <dimen name="detail_text_size">25sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

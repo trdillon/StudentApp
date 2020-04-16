@@ -2,8 +2,11 @@
     <string name="app_name">Student App</string>
     <string name="home">Home</string>
     <string name="terms">Terms</string>
+    <string name="term_list_title">Terms</string>
+    <string name="term_details_title">Term Details</string>
     <string name="courses">Courses</string>
     <string name="assessments">Assessments</string>
     <string name="mentors">Mentors</string>
-    <string name="term_list_title">Terms</string>
+    <string name="term_detail_start">Start Date</string>
+    <string name="term_detail_end">End Date</string>
 </resources>
