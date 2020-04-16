@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="main_cardview_minheight">100dp</dimen>
+    <dimen name="main_cardview_corner_rad">10dp</dimen>
+    <dimen name="main_cardview_text_padding">20dp</dimen>
+    <dimen name="main_cardview_text_size">25sp</dimen>
+    <dimen name="main_cardview_layout_margin_startend">5dp</dimen>
+</resources>

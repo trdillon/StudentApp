@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview_terms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:minHeight="@dimen/main_cardview_minheight"
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_terms"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/terms" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:contentDescription="@string/terms"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/terms" />
+
+            <TextView
+                android:id="@+id/label_terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/main_cardview_text_padding"
+                android:paddingEnd="@dimen/main_cardview_text_padding"
+                android:text="@string/terms"
+                android:textSize="@dimen/main_cardview_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview_courses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="@dimen/main_cardview_minheight"
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_terms">
+
+        <ImageButton
+            android:id="@+id/btn_courses"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/courses" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:contentDescription="@string/courses"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/courses" />
+
+            <TextView
+                android:id="@+id/label_courses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/main_cardview_text_padding"
+                android:paddingEnd="@dimen/main_cardview_text_padding"
+                android:text="@string/courses"
+                android:textSize="@dimen/main_cardview_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview_assessments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="@dimen/main_cardview_minheight"
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_courses">
+
+        <ImageButton
+            android:id="@+id/btn_assessments"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/assessments" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:contentDescription="@string/assessments"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/assessments" />
+
+            <TextView
+                android:id="@+id/label_assessments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/main_cardview_text_padding"
+                android:paddingEnd="@dimen/main_cardview_text_padding"
+                android:text="@string/assessments"
+                android:textSize="@dimen/main_cardview_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="@dimen/main_cardview_minheight"
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_assessments">
+
+        <ImageButton
+            android:id="@+id/btn_mentors"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/mentors" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:contentDescription="@string/mentors"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/mentors" />
+
+            <TextView
+                android:id="@+id/label_mentors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/main_cardview_text_padding"
+                android:paddingEnd="@dimen/main_cardview_text_padding"
+                android:text="@string/mentors"
+                android:textSize="@dimen/main_cardview_text_size"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
