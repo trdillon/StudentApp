@@ -19,4 +19,6 @@
     <dimen name="title_margin_top">16dp</dimen>
     <dimen name="save_icon_margin_end">4dp</dimen>
     <dimen name="save_icon_margin_top">12dp</dimen>
+    <dimen name="list_fab_margin">8dp</dimen>
+    <dimen name="list_text_size">18sp</dimen>
 </resources>

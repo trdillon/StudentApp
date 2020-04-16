@@ -15,4 +15,5 @@
     <string name="courses">Courses</string>
     <string name="assessments">Assessments</string>
     <string name="mentors">Mentors</string>
+    <string name="term_details">Term Details</string>
 </resources>
