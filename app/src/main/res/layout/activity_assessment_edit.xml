@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CourseEditActivity">
+    tools:context=".AssessmentEditActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -33,13 +33,13 @@
         app:srcCompat="@drawable/ic_home" />
 
     <TextView
-        android:id="@+id/activity_course_edit_title"
+        android:id="@+id/activity_assessment_edit_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/title_margin_start"
+        android:layout_marginStart="@dimen/title_margin_start_long"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="serif"
-        android:text="@string/course_edit_title"
+        android:text="@string/assessment_edit_title"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_save_course"
+        android:id="@+id/fab_save_assessment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
@@ -72,6 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <include layout="@layout/content_course_edit"/>
+        <include layout="@layout/content_assessment_edit"/>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

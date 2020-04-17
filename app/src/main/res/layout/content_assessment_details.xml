@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AssessmentDetailsActivity"
+    tools:showIn="@layout/activity_assessment_details">
+
+    <TextView
+        android:id="@+id/asmt_detail_date_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/asmt_detail_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="ADD DATE VAR"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toEndOf="@id/asmt_detail_date_label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/asmt_detail_type_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:text="@string/type"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/asmt_detail_date_label"/>
+
+    <TextView
+        android:id="@+id/asmt_detail_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="ADD TYPE VAR"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/asmt_detail_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/asmt_detail_type_label"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

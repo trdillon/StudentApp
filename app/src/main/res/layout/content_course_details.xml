@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".CourseDetailsActivity">
+    tools:context=".CourseDetailsActivity"
+    tools:showIn="@layout/activity_course_details">
 
     <TextView
         android:id="@+id/course_detail_start_label"

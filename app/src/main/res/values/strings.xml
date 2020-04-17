@@ -21,4 +21,14 @@
     <string name="mentors">Mentors</string>
     <string name="course_edit_note">Edit note</string>
     <string name="course_details">Course Details</string>
+    <string name="assessment_list_title">Assessments</string>
+    <string name="assessment_details_title">Assessment Details</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="assessment_edit_title">Edit Assessment</string>
+    <string name="edit_title">Edit Title</string>
+    <string name="edit_date">Edit Date</string>
+    <string name="edit_status">Edit Status</string>
+    <string name="assessment_type">Assessment Type</string>
+    <string name="assessment_type_2">Type of Assessment</string>
 </resources>

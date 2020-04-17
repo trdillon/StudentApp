@@ -16,6 +16,7 @@
     <dimen name="home_icon_margin_start">4dp</dimen>
     <dimen name="home_icon_margin_top">12dp</dimen>
     <dimen name="title_margin_start">140dp</dimen>
+    <dimen name="title_margin_start_long">120dp</dimen>
     <dimen name="title_margin_top">16dp</dimen>
     <dimen name="save_icon_margin_end">4dp</dimen>
     <dimen name="save_icon_margin_top">12dp</dimen>
