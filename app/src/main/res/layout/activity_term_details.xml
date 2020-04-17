@@ -39,7 +39,7 @@
         android:layout_marginStart="@dimen/title_margin_start"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="serif"
-        android:text="@string/term_details_title"
+        android:text="@string/term_details"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
@@ -74,5 +74,4 @@
         app:layout_anchorGravity="top|end"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

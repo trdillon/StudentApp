@@ -11,12 +11,12 @@
     tools:showIn="@layout/activity_term_edit">
 
     <EditText
+        android:id="@+id/term_edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/term_edit_title"
         android:layout_margin="@dimen/text_margin"
-        android:hint="@string/term_edit_title"
-        android:autofillHints="@string/term_edit_title"
+        android:hint="@string/edit_title"
+        android:autofillHints="@string/edit_title"
         android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_marginTop="16dp"
-        android:hint="@string/edit_start_hint"
-        android:autofillHints="@string/edit_start_hint"
+        android:hint="@string/date_start_hint"
+        android:autofillHints="@string/date_start_hint"
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/term_edit_start_btn"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +49,11 @@
         app:layout_constraintTop_toBottomOf="@+id/term_edit_title" />
 
     <EditText
+        android:id="@+id/term_edit_end"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/term_edit_end"
-        android:hint="@string/edit_end_hint"
-        android:autofillHints="@string/edit_end_hint"
+        android:hint="@string/date_end_hint"
+        android:autofillHints="@string/date_end_hint"
         android:layout_margin="@dimen/text_margin"
         android:inputType="date"
         app:layout_constraintTop_toBottomOf="@+id/term_edit_start"
@@ -85,5 +85,4 @@
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

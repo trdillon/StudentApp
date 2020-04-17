@@ -33,8 +33,7 @@
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/asmt_edit_date_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/asmt_edit_title"
-       />
+        app:layout_constraintTop_toBottomOf="@+id/asmt_edit_title" />
 
     <ImageButton
         android:id="@+id/asmt_edit_date_btn"
@@ -45,19 +44,19 @@
         android:background="@drawable/ic_date"
         android:scaleType="fitXY"
         android:layout_margin="@dimen/text_margin"
+        android:contentDescription="@string/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/asmt_edit_title"
-        android:contentDescription="@string/date_picker" />
+        app:layout_constraintTop_toBottomOf="@+id/asmt_edit_title" />
 
     <TextView
         android:id="@+id/asmt_edit_type_label"
         android:layout_width="@dimen/detail_label_width"
         android:layout_height="wrap_content"
         android:text="@string/assessment_type"
+        android:textSize="20sp"
         android:layout_margin="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@+id/asmt_edit_date"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20sp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/asmt_edit_type_dropdown"
@@ -68,6 +67,5 @@
         android:text="@string/assessment_type_2"
         app:layout_constraintTop_toBottomOf="@+id/asmt_edit_type_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-       />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

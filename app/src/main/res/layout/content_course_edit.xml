@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:hint="@string/course_edit_title"
-        android:autofillHints="@string/course_edit_title"
+        android:hint="@string/edit_course"
+        android:autofillHints="@string/edit_course"
         android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,55 +28,55 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_marginTop="16dp"
-        android:hint="@string/edit_start_hint"
-        android:autofillHints="@string/edit_start_hint"
+        android:hint="@string/date_start_hint"
+        android:autofillHints="@string/date_start_hint"
         android:inputType="date"
         app:layout_constraintEnd_toStartOf="@+id/course_edit_start_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/course_edit_title" />
 
     <ImageButton
+        android:id="@+id/course_edit_start_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/icon_size_40"
         android:minHeight="@dimen/icon_size_40"
-        android:id="@+id/course_edit_start_btn"
         android:background="@drawable/ic_date"
         android:scaleType="fitXY"
         android:layout_margin="@dimen/text_margin"
+        android:contentDescription="@string/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_edit_title"
-        android:contentDescription="@string/date_picker" />
+        app:layout_constraintTop_toBottomOf="@+id/course_edit_title" />
 
     <EditText
+        android:id="@+id/course_edit_end"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/course_edit_end"
-        android:hint="@string/edit_end_hint"
+        android:hint="@string/date_end_hint"
+        android:inputType="date"
         android:layout_margin="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@+id/course_edit_start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/course_edit_end_btn"
-        android:inputType="date" />
+        app:layout_constraintEnd_toStartOf="@+id/course_edit_end_btn" />
 
     <ImageButton
+        android:id="@+id/course_edit_end_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/icon_size_40"
         android:minHeight="@dimen/icon_size_40"
         android:scaleType="fitXY"
-        android:id="@+id/course_edit_end_btn"
         android:background="@drawable/ic_date"
         android:layout_margin="@dimen/text_margin"
+        android:contentDescription="@string/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_edit_start_btn"
-        android:contentDescription="@string/date_picker" />
+        app:layout_constraintTop_toBottomOf="@+id/course_edit_start_btn" />
 
     <TextView
         android:id="@+id/course_edit_status_label"
         android:layout_width="@dimen/detail_label_width"
         android:layout_height="wrap_content"
-        android:text="@string/course_detail_status"
+        android:text="@string/course_status"
         android:textSize="20sp"
         android:layout_margin="@dimen/text_margin"
         app:layout_constraintTop_toBottomOf="@+id/course_edit_end"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/course_detail_status"
+        android:text="@string/course_status"
         app:layout_constraintTop_toBottomOf="@+id/course_edit_status_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -98,10 +98,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:hint="@string/course_edit_note"
+        android:hint="@string/edit_note"
         android:inputType="textCapSentences"
         app:layout_constraintTop_toBottomOf="@+id/course_edit_status_dropdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,7 @@
         android:layout_marginStart="@dimen/title_margin_start_long"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="serif"
-        android:text="@string/assessment_edit_title"
+        android:text="@string/edit_assessment"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"

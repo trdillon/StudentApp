@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="start"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AssessmentDetailsActivity"
@@ -50,5 +51,4 @@
         app:layout_constraintTop_toBottomOf="@+id/asmt_detail_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/asmt_detail_type_label"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

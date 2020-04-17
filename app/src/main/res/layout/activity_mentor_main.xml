@@ -39,7 +39,7 @@
         android:layout_marginStart="@dimen/title_margin_start"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="serif"
-        android:text="@string/mentor_list_title"
+        android:text="@string/mentors"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"

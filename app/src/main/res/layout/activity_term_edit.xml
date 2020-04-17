@@ -39,7 +39,7 @@
         android:layout_marginStart="@dimen/title_margin_start"
         android:layout_marginTop="@dimen/title_margin_top"
         android:fontFamily="serif"
-        android:text="@string/term_edit_title"
+        android:text="@string/edit_term"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
@@ -74,5 +74,4 @@
 
         <include layout="@layout/content_term_edit"/>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
