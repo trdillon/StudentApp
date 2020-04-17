@@ -17,10 +17,10 @@
         android:src="@drawable/ic_add"/>
 
     <TextView
-        android:id="@+id/tv_course_title"
+        android:id="@+id/tv_assessment_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="ADD COURSE VAR"
+        android:text="ADD ASSESSMENT VAR"
         android:textSize="15sp"/>
 </LinearLayout>

@@ -31,4 +31,5 @@
     <string name="edit_status">Edit Status</string>
     <string name="assessment_type">Assessment Type</string>
     <string name="assessment_type_2">Type of Assessment</string>
+    <string name="assessment_details">Assessment Details</string>
 </resources>
