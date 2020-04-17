@@ -40,4 +40,5 @@
     <string name="edit_name">Edit Name</string>
     <string name="edit_email">Edit Email</string>
     <string name="edit_phone">Edit Phone</string>
+    <string name="mentor_details">Mentor Details</string>
 </resources>
