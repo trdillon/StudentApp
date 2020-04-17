@@ -29,6 +29,10 @@
     <string name="home">Home</string>
     <string name="mentors">Mentors</string>
     <string name="mentor_details">Mentor Details</string>
+    <string name="new_assessment">New Assessment</string>
+    <string name="new_course">New Course</string>
+    <string name="new_mentor">New Mentor</string>
+    <string name="new_term">New Term</string>
     <string name="notes">Notes</string>
     <string name="phone">Phone</string>
     <string name="save_edit">Save edit</string>
