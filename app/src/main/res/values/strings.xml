@@ -32,4 +32,12 @@
     <string name="assessment_type">Assessment Type</string>
     <string name="assessment_type_2">Type of Assessment</string>
     <string name="assessment_details">Assessment Details</string>
+    <string name="mentor_list_title">Mentors</string>
+    <string name="mentor_details_title">Mentor Details</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="mentor_edit_title">Edit Mentor</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="edit_email">Edit Email</string>
+    <string name="edit_phone">Edit Phone</string>
 </resources>

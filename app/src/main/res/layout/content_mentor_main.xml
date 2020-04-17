@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".CourseActivity"
-    tools:showIn="@layout/activity_course_main">
+    tools:context=".MentorActivity"
+    tools:showIn="@layout/activity_mentor_main">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/course_recycler_view"
+        android:id="@+id/mentor_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clickable="true"

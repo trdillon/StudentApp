@@ -9,6 +9,7 @@
     <dimen name="main_cardview_layout_margin_startend">5dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="detail_label_width">180dp</dimen>
+    <dimen name="detail_label_width_short">80dp</dimen>
     <dimen name="detail_text_size">25sp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="icon_size_35">35dp</dimen>
