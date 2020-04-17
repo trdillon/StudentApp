@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CourseDetailsActivity">
+
+    <TextView
+        android:id="@+id/course_detail_start_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/detail_start"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/course_detail_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="ADD DATE VAR"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/course_detail_start_label"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/course_detail_end_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/detail_end"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_detail_start_label" />
+
+    <TextView
+        android:id="@+id/course_detail_end"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="ADD DATE VAR"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/course_detail_end_label"
+        app:layout_constraintTop_toBottomOf="@+id/course_detail_start" />
+
+    <TextView
+        android:id="@+id/course_detail_status_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/course_detail_status"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_detail_end_label" />
+
+    <TextView
+        android:id="@+id/course_detail_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="ADD STATUS VAR"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/course_detail_status_label"
+        app:layout_constraintTop_toBottomOf="@+id/course_detail_end" />
+
+    <TextView
+        android:id="@+id/course_detail_note_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/course_detail_note"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_detail_status_label" />
+
+    <TextView
+        android:id="@+id/course_detail_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:ellipsize="end"
+        android:lines="3"
+        android:maxLines="3"
+        android:text="ADD NOTE VAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/course_detail_note_label"
+        app:layout_constraintTop_toBottomOf="@+id/course_detail_status" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/holo_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_detail_note" />
+
+    <TextView
+        android:id="@+id/assessments_label"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/assessments"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_assessment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:src="@drawable/ic_add"
+        app:borderWidth="0dp"
+        app:layout_constraintStart_toEndOf="@+id/assessments_label"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rview_course_detail_assessments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fab_add_assessment"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/mentors_label"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/mentors"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rview_course_detail_assessments" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_mentor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:src="@drawable/ic_add"
+        app:borderWidth="0dp"
+        app:layout_constraintStart_toEndOf="@+id/mentors_label"
+        app:layout_constraintTop_toBottomOf="@+id/rview_course_detail_assessments" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rview_course_detail_mentors"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mentors_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="494dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TermActivity">
+    tools:context=".CourseActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,10 +36,10 @@
         android:id="@+id/activity_term_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/title_margin_start"
-        android:layout_marginTop="@dimen/title_margin_top"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="serif"
-        android:text="@string/terms"
+        android:text="@string/course_list_title"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <include
-        layout="@layout/content_term_main"
+        layout="@layout/content_course_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,4 +69,5 @@
         app:borderWidth="0dp"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
