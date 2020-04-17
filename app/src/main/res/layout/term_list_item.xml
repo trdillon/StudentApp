@@ -29,7 +29,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="TextView"
+        android:text="ADD TERM VAR"
         android:maxLines="2"
         android:ellipsize="end"
         android:textSize="@dimen/list_text_size"
