@@ -136,7 +136,7 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
     }
 
     @OnClick(R.id.fab_edit_term)
-    public void editCourse() {
+    public void editTerm() {
         Intent intent = new Intent(this, TermEditActivity.class);
         intent.putExtra(TERM_ID_KEY, termId);
         this.startActivity(intent);

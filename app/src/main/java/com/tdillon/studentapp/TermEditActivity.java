@@ -187,8 +187,8 @@ public class TermEditActivity extends AppCompatActivity {
             deleteTerm();
         }
         return super.onOptionsItemSelected(item);
-    }
-*/
+    }*/
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(EDITING_KEY, true);
