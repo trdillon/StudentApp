@@ -28,6 +28,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/home"
         android:tint="#000000"
+        android:onClick="showHome"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_home" />

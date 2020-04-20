@@ -1,18 +1,18 @@
 package com.tdillon.studentapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.tdillon.studentapp.util.Constants.COURSE_ID_KEY;
 import static com.tdillon.studentapp.util.Constants.EDITING_KEY;
@@ -57,7 +57,7 @@ public class MentorEditActivity extends AppCompatActivity {
             aViewModel.loadMentor(mentorId);
         }
     }
-
+//TODO - fix save button
     public void addMentor() {
         aViewModel.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
         finish();
@@ -95,16 +95,17 @@ public class MentorEditActivity extends AppCompatActivity {
         addMentor();
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_mentor_edit);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_save);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {

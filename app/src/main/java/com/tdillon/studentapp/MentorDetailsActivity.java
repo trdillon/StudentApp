@@ -2,11 +2,11 @@ package com.tdillon.studentapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.viewmodel.EditorVM;
@@ -25,7 +25,6 @@ public class MentorDetailsActivity extends AppCompatActivity {
     @BindView(R.id.mentor_detail_phone)
     TextView tvMentorPhone;
 
-    private Toolbar toolbar;
     private int mentorId;
     private EditorVM aViewModel;
 
@@ -35,7 +34,6 @@ public class MentorDetailsActivity extends AppCompatActivity {
         aViewModel.vmLiveMentor.observe(this, mentor -> {
             tvMentorEmail.setText(mentor.getEmail());
             tvMentorPhone.setText(mentor.getPhone());
-            toolbar.setTitle(mentor.getName());
         });
 
         Bundle extras = getIntent().getExtras();
@@ -55,13 +53,16 @@ public class MentorDetailsActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mentor_details);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         ButterKnife.bind(this);
         initViewModel();
     }

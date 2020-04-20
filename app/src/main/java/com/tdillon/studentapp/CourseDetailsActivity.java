@@ -3,13 +3,13 @@ package com.tdillon.studentapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,7 +65,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
     private List<Mentor> mentorData = new ArrayList<>();
     private List<Assessment> unassignedAssessments = new ArrayList<>();
     private List<Mentor> unassignedMentors = new ArrayList<>();
-    private Toolbar toolbar;
     private int courseId;
     private AssessmentAdapter aAssessmentAdapter;
     private MentorAdapter aMentorAdapter;
@@ -79,7 +78,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
             tvCourseEndDate.setText(TextFormatter.fullDateFormat.format(course.getExpectedEndDate()));
             tvCourseStatus.setText(course.getCourseStatus().toString());
             tvCourseNote.setText(course.getNote());
-            toolbar.setTitle(course.getTitle());
         });
 
         // Assessments
@@ -263,13 +261,16 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         ButterKnife.bind(this);
         initRecyclerView();
         initViewModel();

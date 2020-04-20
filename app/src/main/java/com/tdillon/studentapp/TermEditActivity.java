@@ -2,27 +2,18 @@ package com.tdillon.studentapp;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.model.Course;
-import com.tdillon.studentapp.ui.RecyclerContext;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
@@ -91,7 +82,7 @@ public class TermEditActivity extends AppCompatActivity {
 
         aViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
     }
-
+//TODO - fix save button
     public void addTerm() {
         try {
             Date startDate = TextFormatter.fullDateFormat.parse(tvTermStartDate.getText().toString());
@@ -200,16 +191,17 @@ public class TermEditActivity extends AppCompatActivity {
         addTerm();
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_term_edit);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_save);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {

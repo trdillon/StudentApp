@@ -2,11 +2,11 @@ package com.tdillon.studentapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.util.TextFormatter;
@@ -26,7 +26,6 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
     @BindView(R.id.asmt_detail_type)
     TextView tvAssessmentType;
 
-    private Toolbar toolbar;
     private int assessmentId;
     private EditorVM aViewModel;
 
@@ -36,7 +35,6 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
         aViewModel.vmLiveAssessment.observe(this, assessment -> {
             tvAssessmentDate.setText(TextFormatter.fullDateFormat.format(assessment.getDate()));
             tvAssessmentType.setText(assessment.getAssessmentType().toString());
-            toolbar.setTitle(assessment.getTitle());
         });
 
         Bundle extras = getIntent().getExtras();
@@ -57,13 +55,16 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_details);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         ButterKnife.bind(this);
         initViewModel();
     }

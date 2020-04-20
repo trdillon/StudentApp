@@ -3,13 +3,13 @@ package com.tdillon.studentapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,7 +48,6 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
 
     private List<Course> courseData = new ArrayList<>();
     private List<Course> unassignedCourses = new ArrayList<>();
-    private Toolbar toolbar;
     private int termId;
     private CourseAdapter aCourseAdapter;
     private EditorVM aViewModel;
@@ -59,7 +58,6 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         aViewModel.vmLiveTerm.observe(this, term -> {
             tvTermStartDate.setText(TextFormatter.fullDateFormat.format(term.getStartDate()));
             tvTermEndDate.setText(TextFormatter.fullDateFormat.format(term.getEndDate()));
-            toolbar.setTitle(term.getTitle());
         });
 
         final Observer<List<Course>> courseObserver =
@@ -163,13 +161,16 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_details);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         ButterKnife.bind(this);
         initRecyclerView();
         initViewModel();

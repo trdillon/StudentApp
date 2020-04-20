@@ -2,8 +2,8 @@ package com.tdillon.studentapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,13 +60,16 @@ public class TermActivity extends AppCompatActivity {
         aTermRecyclerView.setLayoutManager(layoutManager);
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         ButterKnife.bind(this);
         initRecyclerView();
         initViewModel();

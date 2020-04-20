@@ -1,15 +1,16 @@
 package com.tdillon.studentapp;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.model.CourseStatus;
@@ -85,7 +86,7 @@ public class CourseEditActivity extends AppCompatActivity {
             aViewModel.loadCourse(courseId);
         }
     }
-
+//TODO - fix save button
     public void addCourse() {
         try {
             Date startDate = TextFormatter.fullDateFormat.parse(tvCourseStartDate.getText().toString());
@@ -169,16 +170,17 @@ public class CourseEditActivity extends AppCompatActivity {
         addCourse();
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_course_edit);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_save);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {

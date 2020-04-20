@@ -80,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
         aViewModel.vmMentors.observe(this, mentorObserver);
     }
 
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.btn_terms)
     public void showTerms(View view) {
         Intent intent = new Intent(this, TermActivity.class);
@@ -177,8 +183,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         initViewModel();
     }
