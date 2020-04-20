@@ -36,7 +36,7 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
 
     private List<Course> courseData = new ArrayList<>();
     private CourseAdapter aCourseAdapter;
-    private CourseVM aCourseViewModel;
+    private CourseVM aCourseVM;
 
     private void initViewModel() {
         final Observer<List<Course>> courseObserver =
@@ -52,8 +52,8 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
                         aCourseAdapter.notifyDataSetChanged();
                     }
                 };
-        aCourseViewModel = new ViewModelProvider(this).get(CourseVM.class);
-        aCourseViewModel.vmCourses.observe(this, courseObserver);
+        aCourseVM = new ViewModelProvider(this).get(CourseVM.class);
+        aCourseVM.vmCourses.observe(this, courseObserver);
     }
 
     private void initRecyclerView() {

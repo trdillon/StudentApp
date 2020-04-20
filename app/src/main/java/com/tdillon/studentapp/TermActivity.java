@@ -35,7 +35,7 @@ public class TermActivity extends AppCompatActivity {
 
     private List<Term> termData = new ArrayList<>();
     private TermAdapter aTermAdapter;
-    private TermVM aTermViewModel;
+    private TermVM aTermVM;
 
     private void initViewModel() {
         final Observer<List<Term>> termObserver =
@@ -50,8 +50,8 @@ public class TermActivity extends AppCompatActivity {
                         aTermAdapter.notifyDataSetChanged();
                     }
                 };
-        aTermViewModel = new ViewModelProvider(this).get(TermVM.class);
-        aTermViewModel.vmTerms.observe(this, termObserver);
+        aTermVM = new ViewModelProvider(this).get(TermVM.class);
+        aTermVM.vmTerms.observe(this, termObserver);
     }
 
     private void initRecyclerView() {
