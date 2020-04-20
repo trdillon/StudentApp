@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tdillon.studentapp.model.Course;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
@@ -68,7 +69,8 @@ public class TermEditActivity extends AppCompatActivity {
         if(extras == null) {
             setTitle(getString(R.string.new_term));
             aNewTerm = true;
-        } else {
+        }
+        else {
             setTitle(getString(R.string.edit_term));
             termId = extras.getInt(TERM_ID_KEY);
             aViewModel.loadTerm(termId);
@@ -90,11 +92,13 @@ public class TermEditActivity extends AppCompatActivity {
             aViewModel.addTerm(tvTermTitle.getText().toString(), startDate, endDate);
             Log.v("Saved term",tvTermTitle.toString());
 
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
         }
         finish();
     }
+
 
     private void deleteTerm() {
         if(aViewModel.vmLiveTerm.getValue() != null) {
@@ -191,6 +195,11 @@ public class TermEditActivity extends AppCompatActivity {
         addTerm();
     }
 
+    @OnClick(R.id.fab_save_term)
+    public void handleSaveBtn(View view) {
+        addTerm();
+    }
+
     @OnClick(R.id.button_home)
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -200,7 +209,6 @@ public class TermEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_term_edit);
         ButterKnife.bind(this);
 

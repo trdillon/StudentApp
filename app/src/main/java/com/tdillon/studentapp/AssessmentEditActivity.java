@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tdillon.studentapp.model.AssessmentType;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
@@ -138,6 +139,11 @@ public class AssessmentEditActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        addAssessment();
+    }
+
+    @OnClick(R.id.fab_save_assessment)
+    public void handleSaveBtn(View view) {
         addAssessment();
     }
 

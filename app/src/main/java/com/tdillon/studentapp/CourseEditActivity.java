@@ -170,6 +170,11 @@ public class CourseEditActivity extends AppCompatActivity {
         addCourse();
     }
 
+    @OnClick(R.id.fab_save_course)
+    public void handleSaveBtn(View view) {
+        addCourse();
+    }
+
     @OnClick(R.id.button_home)
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);

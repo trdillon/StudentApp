@@ -95,6 +95,11 @@ public class MentorEditActivity extends AppCompatActivity {
         addMentor();
     }
 
+    @OnClick(R.id.fab_save_mentor)
+    public void handleSaveBtn(View view) {
+        addMentor();
+    }
+
     @OnClick(R.id.button_home)
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
