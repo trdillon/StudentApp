@@ -32,7 +32,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="showTerms">
 
             <ImageView
                 android:layout_width="100dp"
@@ -78,7 +79,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="showCourses">
 
             <ImageView
                 android:layout_width="100dp"
@@ -124,7 +126,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="showAssessments">
 
             <ImageView
                 android:layout_width="100dp"
@@ -169,7 +172,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="showMentors">
 
             <ImageView
                 android:layout_width="100dp"

@@ -1,6 +1,5 @@
 package com.tdillon.studentapp;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,26 +16,17 @@ import com.tdillon.studentapp.ui.TermAdapter;
 import com.tdillon.studentapp.util.Alerter;
 import com.tdillon.studentapp.viewmodel.MainVM;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -49,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Assessment> assessmentData = new ArrayList<>();
     private TermAdapter aAdapter;
     private MainVM aViewModel;
-    private TextView termStatus, courseStatus, assessmentStatus, mentorStatus;
 
     private void initViewModel() {
         // Term observer
@@ -57,11 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 termEntities -> {
                     termData.clear();
                     termData.addAll(termEntities);
-                    // Updates term status number
-                    setStatusNumbers(termEntities.size(), termStatus);
                     if (aAdapter == null) {
                         aAdapter = new TermAdapter(termData, MainActivity.this, RecyclerContext.MAIN);
-                    } else {
+                    }
+                    else {
                         aAdapter.notifyDataSetChanged();
                     }
                 };
@@ -70,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 courseEntities -> {
                     courseData.clear();
                     courseData.addAll(courseEntities);
-                    // Updates course status number
-                    setStatusNumbers(courseEntities.size(), courseStatus);
                     handleAlerts();
                 };
 
@@ -80,15 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 assessmentEntities -> {
                     assessmentData.clear();
                     assessmentData.addAll(assessmentEntities);
-                    // Updates assessment status number
-                    setStatusNumbers(assessmentEntities.size(), assessmentStatus);
                     handleAlerts();
                 };
 
         // Mentor observer
         final Observer<List<Mentor>> mentorObserver =
                 mentorEntities -> {
-                    setStatusNumbers(mentorEntities.size(), mentorStatus);
                 };
         aViewModel = new ViewModelProvider(this).get(MainVM.class);
         aViewModel.vmTerms.observe(this, termObserver);
@@ -116,14 +99,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_mentors)
-    public void showMentors() {
+    public void showMentors(View view) {
         Intent intent = new Intent(this, MentorActivity.class);
         startActivity(intent);
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setStatusNumbers(int count, TextView textView) {
-        textView.setText(Integer.toString(count));
     }
 
     private void handleAlerts() {
