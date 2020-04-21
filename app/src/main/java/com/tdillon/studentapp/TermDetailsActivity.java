@@ -92,13 +92,13 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         aViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
         aViewModel.getUnassignedCourses().observe(this, unassignedCourseObserver);
     }
-    //TODO - fix the missing course list
+
     private void initRecyclerView() {
         aCourseRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         aCourseRecyclerView.setLayoutManager(layoutManager);
     }
-
+    //TODO - fix the overlapping course items on details screen
     @OnClick(R.id.fab_add_course)
     public void addCourseButton() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

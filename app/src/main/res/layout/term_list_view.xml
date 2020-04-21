@@ -31,8 +31,8 @@
 
             <ImageButton
                 android:id="@+id/btn_term_details"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:layout_toEndOf="@+id/view_term_fab"
                 android:contentDescription="@string/term_details" />

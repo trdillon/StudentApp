@@ -45,7 +45,8 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                     if(aAssessmentAdapter == null) {
                         aAssessmentAdapter = new AssessmentAdapter(assessmentData, AssessmentActivity.this, RecyclerContext.MAIN, this);
                         aAssessmentRecyclerView.setAdapter(aAssessmentAdapter);
-                    } else {
+                    }
+                    else {
                         aAssessmentAdapter.notifyDataSetChanged();
                     }
                 };

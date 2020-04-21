@@ -37,7 +37,6 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
     private List<Course> courseData = new ArrayList<>();
     private CourseAdapter aCourseAdapter;
 
-    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Course>> courseObserver =
                 courseEntities -> {

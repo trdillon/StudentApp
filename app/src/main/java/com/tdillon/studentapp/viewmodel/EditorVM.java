@@ -98,6 +98,7 @@ public class EditorVM extends AndroidViewModel {
             course.setNote(note);
             course.setTermId(termId);
         }
+        vmRepository.addCourse(course);
     }
 
     public void overwriteCourse(Course course, int termId) {
