@@ -36,7 +36,6 @@ public class MentorActivity extends AppCompatActivity implements MentorAdapter.M
     private List<Mentor> mentorData = new ArrayList<>();
     private MentorAdapter aMentorAdapter;
 
-    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Mentor>> mentorObserver =
                 mentorEntities -> {

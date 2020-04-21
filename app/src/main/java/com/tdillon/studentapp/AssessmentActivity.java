@@ -36,7 +36,6 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
     private List<Assessment> assessmentData = new ArrayList<>();
     private AssessmentAdapter aAssessmentAdapter;
 
-    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Assessment>> assessmentObserver =
                 assessmentEntities -> {

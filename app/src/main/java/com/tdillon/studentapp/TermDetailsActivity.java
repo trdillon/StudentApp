@@ -68,7 +68,8 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
                     if(aCourseAdapter == null) {
                         aCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, this);
                         aCourseRecyclerView.setAdapter(aCourseAdapter);
-                    } else {
+                    }
+                    else {
                         aCourseAdapter.notifyDataSetChanged();
                     }
                 };
@@ -83,14 +84,15 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         if(extras != null) {
             termId = extras.getInt(TERM_ID_KEY);
             aViewModel.loadTerm(termId);
-        } else {
+        }
+        else {
             finish();
         }
 
         aViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
         aViewModel.getUnassignedCourses().observe(this, unassignedCourseObserver);
     }
-
+    //TODO - fix the missing course list
     private void initRecyclerView() {
         aCourseRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

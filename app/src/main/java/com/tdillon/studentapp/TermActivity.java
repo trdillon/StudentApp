@@ -36,7 +36,6 @@ public class TermActivity extends AppCompatActivity {
     private List<Term> termData = new ArrayList<>();
     private TermAdapter aTermAdapter;
 
-    //TODO - fix the missing course list
     private void initViewModel() {
         final Observer<List<Term>> termObserver =
                 termEntities -> {
@@ -57,7 +56,7 @@ public class TermActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         aTermRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         aTermRecyclerView.setLayoutManager(layoutManager);
     }
 

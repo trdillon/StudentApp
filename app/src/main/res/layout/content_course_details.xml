@@ -130,7 +130,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rview_course_detail_assessments"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"
         android:focusable="false"

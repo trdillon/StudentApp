@@ -90,8 +90,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rview_term_detail_course"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
