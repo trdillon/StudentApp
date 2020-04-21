@@ -56,8 +56,8 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 
         aViewModel.vmLiveTerm.observe(this, term -> {
-            tvTermStartDate.setText(TextFormatter.fullDateFormat.format(term.getStartDate()));
-            tvTermEndDate.setText(TextFormatter.fullDateFormat.format(term.getEndDate()));
+            tvTermStartDate.setText(TextFormatter.getDateFormatted(term.getStartDate()));
+            tvTermEndDate.setText(TextFormatter.getDateFormatted(term.getEndDate()));
         });
 
         final Observer<List<Course>> courseObserver =

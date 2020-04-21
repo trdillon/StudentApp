@@ -17,11 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TermActivity"
-            android:label="@string/terms"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+        <activity android:name=".TermActivity" />
         <activity android:name=".TermEditActivity" />
         <activity android:name=".TermDetailsActivity" />
         <activity android:name=".CourseActivity" />

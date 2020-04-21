@@ -57,7 +57,7 @@ public class MentorEditActivity extends AppCompatActivity {
             aViewModel.loadMentor(mentorId);
         }
     }
-//TODO - fix save button
+
     public void addMentor() {
         aViewModel.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
         finish();

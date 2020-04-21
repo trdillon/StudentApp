@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Course> courseData = new ArrayList<>();
     private List<Assessment> assessmentData = new ArrayList<>();
     private TermAdapter aAdapter;
-    private MainVM aViewModel;
 
     private void initViewModel() {
         // Term observer
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 courseEntities -> {
                     courseData.clear();
                     courseData.addAll(courseEntities);
-                    handleAlerts();
                 };
 
         // Assessment observer
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         final Observer<List<Mentor>> mentorObserver =
                 mentorEntities -> {
                 };
-        aViewModel = new ViewModelProvider(this).get(MainVM.class);
+        MainVM aViewModel = new ViewModelProvider(this).get(MainVM.class);
         aViewModel.vmTerms.observe(this, termObserver);
         aViewModel.vmCourses.observe(this, courseObserver);
         aViewModel.vmAssessments.observe(this, assessmentObserver);
@@ -85,19 +83,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_terms)
     public void showTerms(View view) {
         Intent intent = new Intent(this, TermActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_courses)
     public void showCourses(View view) {
         Intent intent = new Intent(this, CourseActivity.class);
         startActivity(intent);
     }
 
-    @OnClick(R.id.btn_assessments)
     public void showAssessments(View view) {
         Intent intent = new Intent(this, AssessmentActivity.class);
         startActivity(intent);
@@ -110,14 +105,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleAlerts() {
-        Log.v("TAYBUG", "We are handling alerts");
+        Log.v("DEBUGGER", "Handling alerts");
         ArrayList<String> alerts = new ArrayList<>();
 
-        Log.v("TAYBUG", "Courses: " + courseData.size() + "\nAssessments: " + assessmentData.size());
+        Log.v("DEBUGGER", "\nTerms: " + termData.size() +
+                "\nCourses: " + courseData.size() + "\nAssessments: " + assessmentData.size());
 
         // Loop through Courses to find start and end dates.
         for(Course course: courseData) {
-            Log.v("TAYBUG", "We are looping through courses to find due dates");
+            Log.v("DEBUGGER", "Looping through courses to find due dates");
             if(DateUtils.isToday(course.getStartDate().getTime())) {
                 Log.v("DEBUG", "Start date is today.");
                 alerts.add("Course " + course.getTitle() + " begins today!");
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Loop through assessments to find start dates
         for(Assessment assessment: assessmentData) {
-            Log.v("TAYBUG", "We are looping through assessments to find due dates");
+            Log.v("DEBUGGER", "Looping through assessments to find due dates");
             if(DateUtils.isToday(assessment.getDate().getTime())) {
                 Log.v("DEBUG", "Assessment due date is today");
                 alerts.add("Assessment " + assessment.getTitle() + " is due today!");

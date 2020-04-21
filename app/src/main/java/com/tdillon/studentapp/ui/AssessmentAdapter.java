@@ -82,7 +82,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
     public void onBindViewHolder(@NonNull AssessmentAdapter.ViewHolder holder, int position) {
         final Assessment assessment = uAssessments.get(position);
         holder.tvTitle.setText(assessment.getTitle());
-        holder.tvDate.setText(TextFormatter.cardDateFormat.format(assessment.getDate()));
+        holder.tvDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
 
         switch(rContext) {
             case MAIN:

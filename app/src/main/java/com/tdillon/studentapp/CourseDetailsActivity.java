@@ -74,8 +74,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 
         aViewModel.vmLiveCourse.observe(this, course -> {
-            tvCourseStartDate.setText(TextFormatter.fullDateFormat.format(course.getStartDate()));
-            tvCourseEndDate.setText(TextFormatter.fullDateFormat.format(course.getExpectedEndDate()));
+            tvCourseStartDate.setText(TextFormatter.getDateFormatted(course.getStartDate()));
+            tvCourseEndDate.setText(TextFormatter.getDateFormatted(course.getExpectedEndDate()));
             tvCourseStatus.setText(course.getCourseStatus().toString());
             tvCourseNote.setText(course.getNote());
         });

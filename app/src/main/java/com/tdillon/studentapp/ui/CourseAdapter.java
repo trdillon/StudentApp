@@ -84,8 +84,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public void onBindViewHolder(@NonNull CourseAdapter.ViewHolder holder, int position) {
         final Course course = uCourses.get(position);
         holder.tvTitle.setText(course.getTitle());
-        String startAndEnd = TextFormatter.cardDateFormat.format(course.getStartDate()) +
-                " to " + TextFormatter.cardDateFormat.format(course.getExpectedEndDate());
+        String startAndEnd = TextFormatter.getDateFormatted(course.getStartDate()) +
+                " to " + TextFormatter.getDateFormatted(course.getExpectedEndDate());
         holder.tvDates.setText(startAndEnd);
 
         switch(rContext) {

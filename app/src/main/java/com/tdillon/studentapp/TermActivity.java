@@ -35,8 +35,8 @@ public class TermActivity extends AppCompatActivity {
 
     private List<Term> termData = new ArrayList<>();
     private TermAdapter aTermAdapter;
-    private TermVM aTermVM;
 
+    //TODO - fix the missing course list
     private void initViewModel() {
         final Observer<List<Term>> termObserver =
                 termEntities -> {
@@ -46,17 +46,18 @@ public class TermActivity extends AppCompatActivity {
                     if(aTermAdapter == null) {
                         aTermAdapter = new TermAdapter(termData, TermActivity.this, RecyclerContext.MAIN);
                         aTermRecyclerView.setAdapter(aTermAdapter);
-                    } else {
+                    }
+                    else {
                         aTermAdapter.notifyDataSetChanged();
                     }
                 };
-        aTermVM = new ViewModelProvider(this).get(TermVM.class);
+        TermVM aTermVM = new ViewModelProvider(this).get(TermVM.class);
         aTermVM.vmTerms.observe(this, termObserver);
     }
 
     private void initRecyclerView() {
         aTermRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         aTermRecyclerView.setLayoutManager(layoutManager);
     }
 

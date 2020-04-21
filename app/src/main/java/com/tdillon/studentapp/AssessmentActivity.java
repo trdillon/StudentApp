@@ -35,8 +35,8 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
 
     private List<Assessment> assessmentData = new ArrayList<>();
     private AssessmentAdapter aAssessmentAdapter;
-    private AssessmentVM aAssessmentVM;
 
+    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Assessment>> assessmentObserver =
                 assessmentEntities -> {
@@ -50,7 +50,7 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                         aAssessmentAdapter.notifyDataSetChanged();
                     }
                 };
-        aAssessmentVM = new ViewModelProvider(this).get(AssessmentVM.class);
+        AssessmentVM aAssessmentVM = new ViewModelProvider(this).get(AssessmentVM.class);
         aAssessmentVM.vmAssessments.observe(this, assessmentObserver);
     }
 

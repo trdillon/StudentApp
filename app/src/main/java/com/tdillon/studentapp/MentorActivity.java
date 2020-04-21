@@ -25,7 +25,7 @@ import butterknife.OnClick;
 public class MentorActivity extends AppCompatActivity implements MentorAdapter.MentorListener {
 
     @BindView(R.id.mentor_recycler_view)
-    RecyclerView mMentorRecyclerView;
+    RecyclerView aMentorRecyclerView;
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
@@ -35,8 +35,8 @@ public class MentorActivity extends AppCompatActivity implements MentorAdapter.M
 
     private List<Mentor> mentorData = new ArrayList<>();
     private MentorAdapter aMentorAdapter;
-    private MentorVM aMentorVM;
 
+    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Mentor>> mentorObserver =
                 mentorEntities -> {
@@ -45,19 +45,19 @@ public class MentorActivity extends AppCompatActivity implements MentorAdapter.M
 
                     if(aMentorAdapter == null) {
                         aMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN, this);
-                        mMentorRecyclerView.setAdapter(aMentorAdapter);
+                        aMentorRecyclerView.setAdapter(aMentorAdapter);
                     } else {
                         aMentorAdapter.notifyDataSetChanged();
                     }
                 };
-        aMentorVM = new ViewModelProvider(this).get(MentorVM.class);
+        MentorVM aMentorVM = new ViewModelProvider(this).get(MentorVM.class);
         aMentorVM.vmMentors.observe(this, mentorObserver);
     }
 
     private void initRecyclerView() {
-        mMentorRecyclerView.setHasFixedSize(true);
+        aMentorRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mMentorRecyclerView.setLayoutManager(layoutManager);
+        aMentorRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override

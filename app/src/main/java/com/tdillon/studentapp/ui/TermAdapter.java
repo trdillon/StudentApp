@@ -66,8 +66,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull TermAdapter.ViewHolder holder, int position) {
         final Term term = uTerms.get(position);
         holder.tvTitle.setText(term.getTitle());
-        String startEnd = TextFormatter.cardDateFormat.format(term.getStartDate() +
-                " to " + TextFormatter.cardDateFormat.format(term.getEndDate()));
+        String startEnd = TextFormatter.getDateFormatted(term.getStartDate()) +
+                " to " + TextFormatter.getDateFormatted(term.getEndDate());
         holder.tvDates.setText(startEnd);
 
         switch(rContext) {

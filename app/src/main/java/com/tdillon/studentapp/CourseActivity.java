@@ -36,8 +36,8 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
 
     private List<Course> courseData = new ArrayList<>();
     private CourseAdapter aCourseAdapter;
-    private CourseVM aCourseVM;
 
+    //TODO - fix missing item list
     private void initViewModel() {
         final Observer<List<Course>> courseObserver =
                 courseEntities -> {
@@ -52,7 +52,7 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
                         aCourseAdapter.notifyDataSetChanged();
                     }
                 };
-        aCourseVM = new ViewModelProvider(this).get(CourseVM.class);
+        CourseVM aCourseVM = new ViewModelProvider(this).get(CourseVM.class);
         aCourseVM.vmCourses.observe(this, courseObserver);
     }
 

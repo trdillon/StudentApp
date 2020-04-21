@@ -33,7 +33,7 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 
         aViewModel.vmLiveAssessment.observe(this, assessment -> {
-            tvAssessmentDate.setText(TextFormatter.fullDateFormat.format(assessment.getDate()));
+            tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
             tvAssessmentType.setText(assessment.getAssessmentType().toString());
         });
 

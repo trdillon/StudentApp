@@ -52,7 +52,7 @@ public class AssessmentEditActivity extends AppCompatActivity {
         aViewModel.vmLiveAssessment.observe(this, assessment -> {
             if(assessment != null && !aEditing) {
                 tvAssessmentTitle.setText(assessment.getTitle());
-                tvAssessmentDate.setText(TextFormatter.fullDateFormat.format(assessment.getDate()));
+                tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
                 int position = getSpinnerPosition(assessment.getAssessmentType());
                 spAssessmentType.setSelection(position);
             }
@@ -72,14 +72,16 @@ public class AssessmentEditActivity extends AppCompatActivity {
             aViewModel.loadAssessment(assessmentId);
         }
     }
-//TODO - fix save button
+
     public void addAssessment() {
         try {
-            Date date = TextFormatter.fullDateFormat.parse(tvAssessmentDate.getText().toString());
+            Date date = TextFormatter.getDateFormattedString(tvAssessmentDate.getText().toString());
             aViewModel.addAssessment(tvAssessmentTitle.getText().toString(), date, getSpinnerValue(), courseId);
             Log.v("Saved Assessment", tvAssessmentTitle.toString());
         } catch (ParseException e) {
             Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         finish();
     }
@@ -92,7 +94,7 @@ public class AssessmentEditActivity extends AppCompatActivity {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            tvAssessmentDate.setText(TextFormatter.fullDateFormat.format(myCalendar.getTime()));
+            tvAssessmentDate.setText(TextFormatter.getDateFormatted(myCalendar.getTime()));
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }

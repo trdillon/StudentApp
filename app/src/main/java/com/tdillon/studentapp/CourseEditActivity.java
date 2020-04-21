@@ -64,8 +64,8 @@ public class CourseEditActivity extends AppCompatActivity {
         aViewModel.vmLiveCourse.observe(this, course -> {
             if(course != null && !aEditing) {
                 tvCourseTitle.setText(course.getTitle());
-                tvCourseStartDate.setText(TextFormatter.fullDateFormat.format(course.getStartDate()));
-                tvCourseEndDate.setText(TextFormatter.fullDateFormat.format(course.getExpectedEndDate()));
+                tvCourseStartDate.setText(TextFormatter.getDateFormatted(course.getStartDate()));
+                tvCourseEndDate.setText(TextFormatter.getDateFormatted(course.getExpectedEndDate()));
                 tvNote.setText(course.getNote());
                 int position = getSpinnerPosition(course.getCourseStatus());
                 spCourseStatus.setSelection(position);
@@ -86,15 +86,17 @@ public class CourseEditActivity extends AppCompatActivity {
             aViewModel.loadCourse(courseId);
         }
     }
-//TODO - fix save button
+
     public void addCourse() {
         try {
-            Date startDate = TextFormatter.fullDateFormat.parse(tvCourseStartDate.getText().toString());
-            Date endDate = TextFormatter.fullDateFormat.parse(tvCourseEndDate.getText().toString());
+            Date startDate = TextFormatter.getDateFormattedString(tvCourseStartDate.getText().toString());
+            Date endDate = TextFormatter.getDateFormattedString(tvCourseEndDate.getText().toString());
             aViewModel.addCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), tvNote.getText().toString(), termId);
             Log.v("Saved Course", tvCourseTitle.toString());
         } catch (ParseException e) {
             Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         finish();
     }
@@ -107,7 +109,7 @@ public class CourseEditActivity extends AppCompatActivity {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            tvCourseStartDate.setText(TextFormatter.fullDateFormat.format(myCalendar.getTime()));
+            tvCourseStartDate.setText(TextFormatter.getDateFormatted(myCalendar.getTime()));
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -120,7 +122,7 @@ public class CourseEditActivity extends AppCompatActivity {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            tvCourseEndDate.setText(TextFormatter.fullDateFormat.format(myCalendar.getTime()));
+            tvCourseEndDate.setText(TextFormatter.getDateFormatted(myCalendar.getTime()));
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
