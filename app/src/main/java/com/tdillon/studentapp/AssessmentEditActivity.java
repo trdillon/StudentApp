@@ -111,7 +111,7 @@ public class AssessmentEditActivity extends AppCompatActivity {
     private int getSpinnerPosition(AssessmentType assessmentType) {
         return assessmentTypeAdapter.getPosition(assessmentType);
     }
-
+//TODO - remove if not needed
     /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(!aNewAssessment) {

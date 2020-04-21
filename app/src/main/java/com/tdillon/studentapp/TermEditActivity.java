@@ -50,7 +50,7 @@ public class TermEditActivity extends AppCompatActivity {
     ImageButton btnEndDate;
 
     private EditorVM aViewModel;
-    private boolean aNewTerm, aEditing;
+    private boolean aEditing;
     private List<Course> courseData = new ArrayList<>();
     int termId;
 
@@ -68,7 +68,7 @@ public class TermEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             setTitle(getString(R.string.new_term));
-            aNewTerm = true;
+            boolean aNewTerm = true;
         }
         else {
             setTitle(getString(R.string.edit_term));
@@ -100,7 +100,6 @@ public class TermEditActivity extends AppCompatActivity {
         }
         finish();
     }
-
 
     private void deleteTerm() {
         if(aViewModel.vmLiveTerm.getValue() != null) {
@@ -164,7 +163,7 @@ public class TermEditActivity extends AppCompatActivity {
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+//TODO - remove if not needed
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(!aNewTerm) {
@@ -200,6 +199,11 @@ public class TermEditActivity extends AppCompatActivity {
     @OnClick(R.id.fab_save_term)
     public void handleSaveBtn(View view) {
         addTerm();
+    }
+
+    @OnClick(R.id.fab_delete)
+    public void handleDeleteBtn(View view) {
+        deleteTerm();
     }
 
     @OnClick(R.id.button_home)

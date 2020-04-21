@@ -69,7 +69,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
     private AssessmentAdapter aAssessmentAdapter;
     private MentorAdapter aMentorAdapter;
     private EditorVM aViewModel;
-
+//TODO - add sharing function for course notes
     private void initViewModel() {
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 
@@ -148,7 +148,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
         aMentorsRecyclerView.setLayoutManager(layoutManager1);
     }
-
+//TODO - add alert options for course & assessment
     @OnClick(R.id.fab_add_assessment)
     public void addAssessment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

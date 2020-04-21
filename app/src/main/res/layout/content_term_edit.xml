@@ -81,6 +81,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@android:color/holo_blue_light"
         android:src="@drawable/ic_delete"
+        android:onClick="handleDeleteBtn"
         app:backgroundTint="@android:color/background_light"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

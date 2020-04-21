@@ -139,7 +139,7 @@ public class CourseEditActivity extends AppCompatActivity {
     private int getSpinnerPosition(CourseStatus courseStatus) {
         return courseStatusAdapter.getPosition(courseStatus);
     }
-
+//TODO - remove if not needed
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(!aNewCourse) {

@@ -62,7 +62,7 @@ public class MentorEditActivity extends AppCompatActivity {
         aViewModel.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
         finish();
     }
-
+//TODO - remove if not needed
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(!aNewMentor) {
