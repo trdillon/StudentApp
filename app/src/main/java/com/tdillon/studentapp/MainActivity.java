@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MentorActivity.class);
         startActivity(intent);
     }
-
+//TODO - test alerts
     private void handleAlerts() {
         Log.v("DEBUGGER", "Handling alerts");
         ArrayList<String> alerts = new ArrayList<>();

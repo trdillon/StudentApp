@@ -98,7 +98,7 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         aCourseRecyclerView.setLayoutManager(layoutManager);
     }
-    //TODO - fix the overlapping course items on details screen
+
     @OnClick(R.id.fab_add_course)
     public void addCourseButton() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
