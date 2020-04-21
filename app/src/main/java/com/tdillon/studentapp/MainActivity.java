@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MentorActivity.class);
         startActivity(intent);
     }
-//TODO - test alerts
+
     private void handleAlerts() {
         Log.v("DEBUGGER", "Handling alerts");
         ArrayList<String> alerts = new ArrayList<>();
@@ -146,32 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-//TODO - remove if not needed
-    /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_sample_data) {
-            addSampleData();
-            return true;
-        } else if (id == R.id.action_delete_all) {
-            deleteAllData();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    } */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

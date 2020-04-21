@@ -139,27 +139,6 @@ public class CourseEditActivity extends AppCompatActivity {
     private int getSpinnerPosition(CourseStatus courseStatus) {
         return courseStatusAdapter.getPosition(courseStatus);
     }
-//TODO - remove if not needed
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if(!aNewCourse) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_editor, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            addCourse();
-            return true;
-        } else if(item.getItemId() == R.id.action_delete) {
-            aViewModel.deleteCourse();
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    } */
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

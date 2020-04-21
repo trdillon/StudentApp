@@ -62,27 +62,6 @@ public class MentorEditActivity extends AppCompatActivity {
         aViewModel.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
         finish();
     }
-//TODO - remove if not needed
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if(!aNewMentor) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_editor, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            addMentor();
-            return true;
-        } else if(item.getItemId() == R.id.action_delete) {
-            aViewModel.deleteAssessment();
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    } */
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

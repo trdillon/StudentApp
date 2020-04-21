@@ -163,27 +163,6 @@ public class TermEditActivity extends AppCompatActivity {
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-//TODO - remove if not needed
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if(!aNewTerm) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_editor, menu);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home) {
-            addTerm();
-            return true;
-        }
-        else if (item.getItemId() == R.id.action_delete) {
-            deleteTerm();
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
