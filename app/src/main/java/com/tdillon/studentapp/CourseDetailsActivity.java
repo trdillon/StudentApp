@@ -148,7 +148,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
         aMentorsRecyclerView.setLayoutManager(layoutManager1);
     }
-//TODO - add alert options for course & assessment
+//TODO - add alert options for course start & end date
     @OnClick(R.id.fab_add_assessment)
     public void addAssessment() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
