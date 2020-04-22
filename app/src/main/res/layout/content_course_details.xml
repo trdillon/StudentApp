@@ -96,6 +96,31 @@
         app:layout_constraintStart_toEndOf="@+id/course_detail_note_label"
         app:layout_constraintTop_toBottomOf="@+id/course_detail_status" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/course_detail_share_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        app:fabSize="mini"
+        android:src="@android:drawable/ic_menu_share"
+        app:borderWidth="0dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_detail_note_label"/>
+
+    <TextView
+        android:id="@+id/course_detail_share_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_marginTop="16dp"
+        android:text="@string/share"
+        android:textSize="18sp"
+        android:onClick="handleShareBtn"
+        app:layout_constraintStart_toEndOf="@+id/course_detail_share_fab"
+        app:layout_constraintBottom_toBottomOf="@id/course_detail_share_fab"
+        app:layout_constraintTop_toTopOf="@+id/course_detail_share_fab" />
+
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
@@ -105,7 +130,7 @@
         android:background="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/course_detail_note" />
+        app:layout_constraintTop_toBottomOf="@id/course_detail_share_fab" />
 
     <TextView
         android:id="@+id/assessments_label"

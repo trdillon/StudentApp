@@ -69,7 +69,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
     private AssessmentAdapter aAssessmentAdapter;
     private MentorAdapter aMentorAdapter;
     private EditorVM aViewModel;
-//TODO - add sharing function for course notes
+
     private void initViewModel() {
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 
@@ -255,6 +255,22 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @OnClick(R.id.course_detail_share_fab)
+    public void shareNote() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String shareBody = tvCourseNote.getText().toString();
+        String shareSub = "Notes for course: " + getTitle();
+        intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(intent, "Share using"));
+    }
+
+    @OnClick(R.id.course_detail_share_fab)
+    public void handleShareBtn(View view) {
+        shareNote();
     }
 
     private int getPxFromDp(int dp) {

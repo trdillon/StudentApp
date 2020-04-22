@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tdillon.studentapp.model.Course;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
