@@ -1,10 +1,6 @@
 package com.tdillon.studentapp;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 
 import com.tdillon.studentapp.model.Assessment;
@@ -13,17 +9,13 @@ import com.tdillon.studentapp.model.Mentor;
 import com.tdillon.studentapp.model.Term;
 import com.tdillon.studentapp.ui.RecyclerContext;
 import com.tdillon.studentapp.ui.TermAdapter;
-import com.tdillon.studentapp.util.AlertReceiver;
 import com.tdillon.studentapp.viewmodel.MainVM;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -113,14 +113,15 @@ public class AssessmentEditActivity extends AppCompatActivity {
 
     public void alertAssessment() {
         Intent intent = new Intent(AssessmentEditActivity.this, AlertReceiver.class);
-        intent.putExtra("key", "You have a new Assessment alert!");
+        intent.putExtra("key", "You have an assessment due today!");
         PendingIntent sender = PendingIntent.getBroadcast(AssessmentEditActivity.this, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         long goalDateAlert = Long.parseLong(tvGoalMillis.getText().toString());
         assert alarmManager != null;
         alarmManager.set(AlarmManager.RTC_WAKEUP, goalDateAlert, sender);
+        Log.v("INFO", "Added alert");
     }
-//TODO - fix the alerts so they show on the correct date
+
     @OnClick(R.id.asmt_edit_date_btn)
     public void assessmentDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();

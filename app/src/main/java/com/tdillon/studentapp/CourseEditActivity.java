@@ -129,12 +129,13 @@ public class CourseEditActivity extends AppCompatActivity {
 
     public void alertCourse() {
         Intent intent = new Intent(CourseEditActivity.this, AlertReceiver.class);
-        intent.putExtra("key", "You have a new Course alert!");
+        intent.putExtra("key", "You have a course ending today!");
         PendingIntent sender = PendingIntent.getBroadcast(CourseEditActivity.this, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         long endDateAlert = Long.parseLong(tvEndMillis.getText().toString());
         assert alarmManager != null;
         alarmManager.set(AlarmManager.RTC_WAKEUP, endDateAlert, sender);
+        Log.v("INFO", "Added alert");
     }
 
     @OnClick(R.id.course_edit_start_btn)
@@ -149,7 +150,7 @@ public class CourseEditActivity extends AppCompatActivity {
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-    //TODO - fix the alerts so they show on the correct date
+
     @OnClick(R.id.course_edit_end_btn)
     public void courseEndDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();
@@ -212,10 +213,8 @@ public class CourseEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_course_edit);
         ButterKnife.bind(this);
-
         if(savedInstanceState != null) {
             aEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }

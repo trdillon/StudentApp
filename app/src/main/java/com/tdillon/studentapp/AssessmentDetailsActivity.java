@@ -28,7 +28,7 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
 
     private int assessmentId;
     private EditorVM aViewModel;
-//TODO - add alerts for goal dates
+
     private void initViewModel() {
         aViewModel = new ViewModelProvider(this).get(EditorVM.class);
 

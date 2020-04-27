@@ -26,6 +26,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle("Notification ID: " + notificationID)
                 .setContentText(intent.getStringExtra("key"))
+                .setAutoCancel(true)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
