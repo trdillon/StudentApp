@@ -179,7 +179,7 @@ public class TermEditActivity extends AppCompatActivity {
         addTerm();
     }
 
-    @OnClick(R.id.fab_delete)
+    @OnClick(R.id.fab_delete_term)
     public void handleDeleteBtn(View view) {
         deleteTerm();
     }

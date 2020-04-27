@@ -1,6 +1,10 @@
 package com.tdillon.studentapp;
 
+import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tdillon.studentapp.model.CourseStatus;
+import com.tdillon.studentapp.util.AlertReceiver;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
@@ -53,8 +58,11 @@ public class CourseEditActivity extends AppCompatActivity {
     @BindView(R.id.course_edit_note)
     EditText tvNote;
 
+    @BindView(R.id.text_end_millis)
+    EditText tvEndMillis;
+
     private EditorVM aViewModel;
-    private boolean aNewCourse, aEditing;
+    private boolean aEditing;
     private int termId = -1;
     private ArrayAdapter<CourseStatus> courseStatusAdapter;
 
@@ -75,7 +83,7 @@ public class CourseEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             setTitle(getString(R.string.new_course));
-            aNewCourse = true;
+            boolean aNewCourse = true;
         } else if (extras.containsKey(TERM_ID_KEY)){ // Check if this is adding a course to a term
             termId = extras.getInt(TERM_ID_KEY);
             Log.v("DEBUG", "Extras term ID: " + termId);
@@ -101,6 +109,34 @@ public class CourseEditActivity extends AppCompatActivity {
         finish();
     }
 
+    private void deleteCourse() {
+        if(aViewModel.vmLiveCourse.getValue() != null) {
+            String courseTitle = aViewModel.vmLiveCourse.getValue().getTitle();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Delete " + courseTitle + "?");
+            builder.setMessage("Are you sure you want to delete course '" + courseTitle + "'?");
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setPositiveButton("Yes", (dialog, id) -> {
+                dialog.dismiss();
+                aViewModel.deleteCourse();
+                finish();
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
+    public void alertCourse() {
+        Intent intent = new Intent(CourseEditActivity.this, AlertReceiver.class);
+        intent.putExtra("key", "You have a new Course alert!");
+        PendingIntent sender = PendingIntent.getBroadcast(CourseEditActivity.this, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        long endDateAlert = Long.parseLong(tvEndMillis.getText().toString());
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, endDateAlert, sender);
+    }
+
     @OnClick(R.id.course_edit_start_btn)
     public void courseStartDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();
@@ -113,7 +149,7 @@ public class CourseEditActivity extends AppCompatActivity {
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
-
+    //TODO - fix the alerts so they show on the correct date
     @OnClick(R.id.course_edit_end_btn)
     public void courseEndDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();
@@ -123,6 +159,7 @@ public class CourseEditActivity extends AppCompatActivity {
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             tvCourseEndDate.setText(TextFormatter.getDateFormatted(myCalendar.getTime()));
+            tvEndMillis.setText(Long.toString(myCalendar.getTimeInMillis()));
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -156,6 +193,16 @@ public class CourseEditActivity extends AppCompatActivity {
         addCourse();
     }
 
+    @OnClick(R.id.fab_delete_course)
+    public void handleDeleteBtn(View view) {
+        deleteCourse();
+    }
+
+    @OnClick(R.id.fab_alert_course)
+    public void handleAlertBtn(View view) {
+        alertCourse();
+    }
+
     @OnClick(R.id.button_home)
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -173,7 +220,6 @@ public class CourseEditActivity extends AppCompatActivity {
             aEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
         initViewModel();
-        // Set up spinner object
         addSpinnerItems();
     }
 }

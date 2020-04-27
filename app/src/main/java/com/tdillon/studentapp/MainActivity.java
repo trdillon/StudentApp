@@ -13,7 +13,7 @@ import com.tdillon.studentapp.model.Mentor;
 import com.tdillon.studentapp.model.Term;
 import com.tdillon.studentapp.ui.RecyclerContext;
 import com.tdillon.studentapp.ui.TermAdapter;
-import com.tdillon.studentapp.util.Alerter;
+import com.tdillon.studentapp.util.AlertReceiver;
 import com.tdillon.studentapp.viewmodel.MainVM;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 assessmentEntities -> {
                     assessmentData.clear();
                     assessmentData.addAll(assessmentEntities);
-                    handleAlerts();
                 };
 
         // Mentor observer
@@ -103,32 +102,31 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MentorActivity.class);
         startActivity(intent);
     }
-
+/*
     private void handleAlerts() {
-        Log.v("DEBUGGER", "Handling alerts");
+        Log.v("INFO", "Building alarm manager for alerts..");
         ArrayList<String> alerts = new ArrayList<>();
 
-        Log.v("DEBUGGER", "\nTerms: " + termData.size() +
-                "\nCourses: " + courseData.size() + "\nAssessments: " + assessmentData.size());
+        Log.v("INFO", "Courses: " + courseData.size() + "\nAssessments: " + assessmentData.size());
 
         // Loop through Courses to find start and end dates.
         for(Course course: courseData) {
-            Log.v("DEBUGGER", "Looping through courses to find due dates");
+            Log.v("INFO", "Checking courses to find end dates..");
             if(DateUtils.isToday(course.getStartDate().getTime())) {
-                Log.v("DEBUG", "Start date is today.");
-                alerts.add("Course " + course.getTitle() + " begins today!");
+                Log.v("ALERT", "Start date is today.");
+                alerts.add("Course " + course.getTitle() + " begins today.");
             } else if(DateUtils.isToday(course.getExpectedEndDate().getTime())) {
-                Log.v("DEBUG", "End date is today!");
-                alerts.add("Course" + course.getTitle() + " ends today!");
+                Log.v("ALERT", "End date is today.");
+                alerts.add("Course" + course.getTitle() + " ends today.");
             }
         }
 
         // Loop through assessments to find start dates
         for(Assessment assessment: assessmentData) {
-            Log.v("DEBUGGER", "Looping through assessments to find due dates");
+            Log.v("INFO", "Checking assessments for goal dates..");
             if(DateUtils.isToday(assessment.getDate().getTime())) {
-                Log.v("DEBUG", "Assessment due date is today");
-                alerts.add("Assessment " + assessment.getTitle() + " is due today!");
+                Log.v("ALERT", "Assessment due date is today.");
+                alerts.add("Assessment " + assessment.getTitle() + " is due today.");
             }
         }
         // Toast the alerts one at a time
@@ -136,16 +134,13 @@ public class MainActivity extends AppCompatActivity {
             for(String alert: alerts) {
                 AlarmManager alarm = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
                 Alerter alerting = new Alerter();
-                IntentFilter filter = new IntentFilter("ALARM_ACTION");
-                registerReceiver(alerting, filter);
-
                 Intent intent = new Intent("ALARM_ACTION");
-                intent.putExtra("param", alert);
+                intent.putExtra("key", alert);
                 PendingIntent operation = PendingIntent.getBroadcast(this, 0, intent, 0);
                 alarm.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+ Toast.LENGTH_SHORT, operation);
             }
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
