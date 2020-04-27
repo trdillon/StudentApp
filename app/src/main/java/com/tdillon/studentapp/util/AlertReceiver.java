@@ -23,7 +23,7 @@ public class AlertReceiver extends BroadcastReceiver {
         createNotificationChannel(context, CHANNEL_ID);
 
         Notification n = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_foreground)
                 .setContentTitle("Notification ID: " + notificationID)
                 .setContentText(intent.getStringExtra("key"))
                 .setAutoCancel(true)
