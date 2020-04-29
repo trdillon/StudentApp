@@ -29,6 +29,7 @@
     <string name="home">Home</string>
     <string name="mentors">Mentors</string>
     <string name="mentor_details">Mentor Details</string>
+    <string name="name">Name</string>
     <string name="new_assessment">New Assessment</string>
     <string name="new_course">New Course</string>
     <string name="new_mentor">New Mentor</string>
@@ -39,5 +40,6 @@
     <string name="share">Share Note</string>
     <string name="terms">Terms</string>
     <string name="term_details">Term Details</string>
+    <string name="title">Title</string>
     <string name="type">Type</string>
 </resources>

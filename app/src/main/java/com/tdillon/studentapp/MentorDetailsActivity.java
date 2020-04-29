@@ -21,6 +21,9 @@ public class MentorDetailsActivity extends AppCompatActivity {
 
     private int mentorID;
 
+    @BindView(R.id.mentor_detail_name)
+    TextView tvMentorName;
+
     @BindView(R.id.mentor_detail_email)
     TextView tvMentorEmail;
 
@@ -37,6 +40,7 @@ public class MentorDetailsActivity extends AppCompatActivity {
         EditorVM editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
         editorVM.vmLiveMentor.observe(this, mentor -> {
+            tvMentorName.setText(mentor.getName());
             tvMentorEmail.setText(mentor.getEmail());
             tvMentorPhone.setText(mentor.getPhone());
         });

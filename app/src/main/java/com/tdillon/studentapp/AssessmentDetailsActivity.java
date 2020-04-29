@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,6 +23,9 @@ import static com.tdillon.studentapp.util.Constants.ASSESSMENT_ID_KEY;
 public class AssessmentDetailsActivity extends AppCompatActivity {
 
     private int assessmentId;
+
+    @BindView(R.id.asmt_detail_title)
+    TextView tvAssessmentTitle;
 
     @BindView(R.id.asmt_detail_date)
     TextView tvAssessmentDate;
@@ -46,6 +51,7 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
         EditorVM editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
         editorVM.vmLiveAssessment.observe(this, assessment -> {
+            tvAssessmentTitle.setText(assessment.getTitle());
             tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
             tvAssessmentType.setText(assessment.getAssessmentType().toString());
         });

@@ -40,6 +40,9 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
     private CourseAdapter courseAdapter;
     private EditorVM editorVM;
 
+    @BindView(R.id.term_detail_title)
+    TextView tvTermTitle;
+
     @BindView(R.id.term_detail_start)
     TextView tvTermStartDate;
 
@@ -62,6 +65,7 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
         editorVM.vmLiveTerm.observe(this, term -> {
+            tvTermTitle.setText(term.getTitle());
             tvTermStartDate.setText(TextFormatter.getDateFormatted(term.getStartDate()));
             tvTermEndDate.setText(TextFormatter.getDateFormatted(term.getEndDate()));
         });

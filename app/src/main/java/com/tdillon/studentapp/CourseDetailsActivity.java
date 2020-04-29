@@ -46,6 +46,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
     private MentorAdapter mentorAdapter;
     private EditorVM editorVM;
 
+    @BindView(R.id.course_detail_title)
+    TextView tvCourseTitle;
+
     @BindView(R.id.course_detail_start)
     TextView tvCourseStartDate;
 
@@ -86,6 +89,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
         editorVM.vmLiveCourse.observe(this, course -> {
+            tvCourseTitle.setText(course.getTitle());
             tvCourseStartDate.setText(TextFormatter.getDateFormatted(course.getStartDate()));
             tvCourseEndDate.setText(TextFormatter.getDateFormatted(course.getExpectedEndDate()));
             tvCourseStatus.setText(course.getCourseStatus().toString());

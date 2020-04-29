@@ -1,5 +1,6 @@
 package com.tdillon.studentapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +44,11 @@ public class MentorEditActivity extends AppCompatActivity {
         addMentor();
     }
 
+    @OnClick(R.id.fab_delete_mentor)
+    public void handleDeleteBtn(View view) {
+        deleteMentor();
+    }
+
     @OnClick(R.id.button_home)
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -80,6 +86,24 @@ public class MentorEditActivity extends AppCompatActivity {
         finish();
     }
 
+    private void deleteMentor() {
+        if(editorVM.vmLiveMentor.getValue() != null) {
+            String mentorName = editorVM.vmLiveMentor.getValue().getName();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Delete " + mentorName + "?");
+            builder.setMessage("Are you sure you want to delete mentor '" + mentorName + "'?");
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setPositiveButton("Yes", (dialog, id) -> {
+                dialog.dismiss();
+                editorVM.deleteMentor();
+                finish();
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(EDITING_KEY, true);
@@ -98,4 +122,5 @@ public class MentorEditActivity extends AppCompatActivity {
 
         initViewModel();
     }
+
 }
