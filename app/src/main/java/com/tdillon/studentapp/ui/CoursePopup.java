@@ -16,31 +16,23 @@ import java.util.List;
 
 public class CoursePopup extends RecyclerView.Adapter<CoursePopup.CourseViewHolder> {
 
-    private List<Course> uCourses;
+    private List<Course> currCourses;
     private CourseListener currCourseListener;
 
-    public CoursePopup(List<Course> uCourses){
+    CoursePopup(List<Course> currCourses){
         super();
-        this.uCourses = uCourses;
+        this.currCourses = currCourses;
     }
 
     static class CourseViewHolder extends RecyclerView.ViewHolder {
         TextView tvCourseTitle;
         ImageView ivIcon;
 
-        public CourseViewHolder(View itemView) {
+        CourseViewHolder(View itemView) {
             super(itemView);
             tvCourseTitle = itemView.findViewById(R.id.tv_course_title);
             ivIcon = itemView.findViewById(R.id.ivIcon);
         }
-    }
-
-    public interface CourseListener {
-        void onCourseSelected(int position, Course course);
-    }
-
-    public void setCourseListener(CoursePopup.CourseListener currCourseListener) {
-        this.currCourseListener = currCourseListener;
     }
 
     @NonNull
@@ -51,7 +43,7 @@ public class CoursePopup extends RecyclerView.Adapter<CoursePopup.CourseViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, final int position) {
-        final Course course = uCourses.get(position);
+        final Course course = currCourses.get(position);
         holder.tvCourseTitle.setText(course.getTitle());
         holder.itemView.setOnClickListener(view -> {
             if(currCourseListener != null){
@@ -60,8 +52,16 @@ public class CoursePopup extends RecyclerView.Adapter<CoursePopup.CourseViewHold
         });
     }
 
+    public interface CourseListener {
+        void onCourseSelected(int position, Course course);
+    }
+
+    void setCourseListener(CoursePopup.CourseListener currCourseListener) {
+        this.currCourseListener = currCourseListener;
+    }
+
     @Override
     public int getItemCount() {
-        return uCourses.size();
+        return currCourses.size();
     }
 }

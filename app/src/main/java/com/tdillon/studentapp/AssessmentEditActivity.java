@@ -1,5 +1,6 @@
 package com.tdillon.studentapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -7,7 +8,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -21,10 +21,8 @@ import com.tdillon.studentapp.util.AlertReceiver;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +33,11 @@ import static com.tdillon.studentapp.util.Constants.COURSE_ID_KEY;
 import static com.tdillon.studentapp.util.Constants.EDITING_KEY;
 
 public class AssessmentEditActivity extends AppCompatActivity {
+
+    private EditorVM editorVM;
+    private boolean isEditing;
+    private int courseID = -1;
+    private ArrayAdapter<AssessmentType> assessmentTypeAdapter;
 
     @BindView(R.id.asmt_edit_title)
     EditText tvAssessmentTitle;
@@ -48,16 +51,37 @@ public class AssessmentEditActivity extends AppCompatActivity {
     @BindView(R.id.text_goal_millis)
     EditText tvGoalMillis;
 
-    private EditorVM aViewModel;
-    private boolean aNewAssessment, aEditing;
-    private int courseId = -1;
-    private ArrayAdapter<AssessmentType> assessmentTypeAdapter;
+    @Override
+    public void onBackPressed() {
+        addAssessment();
+    }
+
+    @OnClick(R.id.fab_save_assessment)
+    public void handleSaveBtn(View view) {
+        addAssessment();
+    }
+
+    @OnClick(R.id.fab_alert_assessment)
+    public void handleAlertBtn(View view) {
+        alertAssessment();
+    }
+
+    @OnClick(R.id.fab_delete_assessment)
+    public void handleDeleteBtn(View view) {
+        deleteAssessment();
+    }
+
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
+        editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
-        aViewModel.vmLiveAssessment.observe(this, assessment -> {
-            if(assessment != null && !aEditing) {
+        editorVM.vmLiveAssessment.observe(this, assessment -> {
+            if(assessment != null && !isEditing) {
                 tvAssessmentTitle.setText(assessment.getTitle());
                 tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
                 int position = getSpinnerPosition(assessment.getAssessmentType());
@@ -68,25 +92,22 @@ public class AssessmentEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             setTitle(getString(R.string.new_assessment));
-            aNewAssessment = true;
-        } else if (extras.containsKey(COURSE_ID_KEY)) {
-            courseId = extras.getInt(COURSE_ID_KEY);
-            Log.v("DEBUG", "Extras course ID: " + courseId);
+        }
+        else if (extras.containsKey(COURSE_ID_KEY)) {
+            courseID = extras.getInt(COURSE_ID_KEY);
             setTitle(getString(R.string.new_assessment));
-        } else {
+        }
+        else {
             setTitle(R.string.edit_assessment);
-            int assessmentId = extras.getInt(ASSESSMENT_ID_KEY);
-            aViewModel.loadAssessment(assessmentId);
+            int assessmentID = extras.getInt(ASSESSMENT_ID_KEY);
+            editorVM.loadAssessment(assessmentID);
         }
     }
 
     public void addAssessment() {
         try {
             Date date = TextFormatter.getDateFormattedString(tvAssessmentDate.getText().toString());
-            aViewModel.addAssessment(tvAssessmentTitle.getText().toString(), date, getSpinnerValue(), courseId);
-            Log.v("Saved Assessment", tvAssessmentTitle.toString());
-        } catch (ParseException e) {
-            Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
+            editorVM.addAssessment(tvAssessmentTitle.getText().toString(), date, getSpinnerValue(), courseID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,15 +115,15 @@ public class AssessmentEditActivity extends AppCompatActivity {
     }
 
     private void deleteAssessment() {
-        if(aViewModel.vmLiveAssessment.getValue() != null) {
-            String assessmentTitle = aViewModel.vmLiveAssessment.getValue().getTitle();
+        if(editorVM.vmLiveAssessment.getValue() != null) {
+            String assessmentTitle = editorVM.vmLiveAssessment.getValue().getTitle();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Delete " + assessmentTitle + "?");
             builder.setMessage("Are you sure you want to delete assessment '" + assessmentTitle + "'?");
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setPositiveButton("Yes", (dialog, id) -> {
                 dialog.dismiss();
-                aViewModel.deleteAssessment();
+                editorVM.deleteAssessment();
                 finish();
             });
             builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
@@ -119,13 +140,12 @@ public class AssessmentEditActivity extends AppCompatActivity {
         long goalDateAlert = Long.parseLong(tvGoalMillis.getText().toString());
         assert alarmManager != null;
         alarmManager.set(AlarmManager.RTC_WAKEUP, goalDateAlert, sender);
-        Log.v("INFO", "Added alert");
     }
 
     @OnClick(R.id.asmt_edit_date_btn)
     public void assessmentDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+        @SuppressLint("SetTextI18n") DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -156,44 +176,16 @@ public class AssessmentEditActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        addAssessment();
-    }
-
-    @OnClick(R.id.fab_save_assessment)
-    public void handleSaveBtn(View view) {
-        addAssessment();
-    }
-
-    @OnClick(R.id.fab_alert_assessment)
-    public void handleAlertBtn(View view) {
-        alertAssessment();
-    }
-
-    @OnClick(R.id.fab_delete_assessment)
-    public void handleDeleteBtn(View view) {
-        deleteAssessment();
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_edit);
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {
-            aEditing = savedInstanceState.getBoolean(EDITING_KEY);
+            isEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
 
         initViewModel();
         addSpinnerItems();
     }
-
-
 }

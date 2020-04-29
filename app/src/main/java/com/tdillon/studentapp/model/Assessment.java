@@ -28,6 +28,7 @@ public class Assessment {
         this.courseId = courseId;
     }
 
+    //Use this constructor - courseID will be set when assigned to a course
     public Assessment(String title, Date date, AssessmentType assessmentType) {
         this.title = title;
         this.date = date;

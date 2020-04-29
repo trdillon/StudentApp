@@ -6,8 +6,9 @@ import androidx.room.TypeConverter;
 
 import com.tdillon.studentapp.model.AssessmentType;
 
-public class AssessmentTypeConverter {
+class AssessmentTypeConverter {
 
+    //Converter for AssessmentType enum
     @TypeConverter
     public static String fromAssessmentTypeToString(AssessmentType assessmentType) {
         if(assessmentType == null) {

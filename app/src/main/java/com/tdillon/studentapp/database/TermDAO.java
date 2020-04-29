@@ -14,11 +14,9 @@ import java.util.List;
 @Dao
 public interface TermDAO {
 
+    //Term queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addTerm(Term term);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addAllTerms(List<Term> terms);
 
     @Delete
     void deleteTerm(Term term);
@@ -28,10 +26,4 @@ public interface TermDAO {
 
     @Query("SELECT * FROM terms WHERE id = :id")
     Term getTermById(int id);
-
-    @Query("DELETE FROM terms")
-    int deleteAllTerms();
-
-    @Query("SELECT COUNT(*) FROM terms")
-    int getTermCount();
 }

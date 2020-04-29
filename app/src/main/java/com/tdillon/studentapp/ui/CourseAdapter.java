@@ -2,7 +2,6 @@ package com.tdillon.studentapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,14 +28,14 @@ import static com.tdillon.studentapp.util.Constants.COURSE_ID_KEY;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
-    private final Context uContext;
+    private final Context currContext;
     private final RecyclerContext rContext;
-    private final List<Course> uCourses;
+    private final List<Course> currCourses;
     private CourseListener currCourseListener;
 
-    public CourseAdapter(List<Course> uCourses, Context uContext, RecyclerContext rContext, CourseListener currCourseListener) {
-        this.uCourses = uCourses;
-        this.uContext = uContext;
+    public CourseAdapter(List<Course> currCourses, Context currContext, RecyclerContext rContext, CourseListener currCourseListener) {
+        this.currCourses = currCourses;
+        this.currContext = currContext;
         this.rContext = rContext;
         this.currCourseListener = currCourseListener;
     }
@@ -61,12 +60,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         @Override
         public void onClick(View v) {
-            currCourseListener.onCourseSelected(getAdapterPosition(), uCourses.get(getAdapterPosition()));
+            currCourseListener.onCourseSelected(getAdapterPosition(), currCourses.get(getAdapterPosition()));
         }
-    }
-
-    public interface CourseListener {
-        void onCourseSelected(int position, Course course);
     }
 
     @NonNull
@@ -79,7 +74,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CourseAdapter.ViewHolder holder, int position) {
-        final Course course = uCourses.get(position);
+        final Course course = currCourses.get(position);
         holder.tvTitle.setText(course.getTitle());
         String startAndEnd = TextFormatter.getDateFormatted(course.getStartDate()) +
                 " to " + TextFormatter.getDateFormatted(course.getExpectedEndDate());
@@ -87,22 +82,21 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         switch(rContext) {
             case MAIN:
-                Log.v("rContext", "rContext is " + rContext.name());
-                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_edit));
+                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_edit));
                 holder.courseImageBtn.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, CourseDetailsActivity.class);
+                    Intent intent = new Intent(currContext, CourseDetailsActivity.class);
                     intent.putExtra(COURSE_ID_KEY, course.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
 
                 holder.courseFab.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, CourseEditActivity.class);
+                    Intent intent = new Intent(currContext, CourseEditActivity.class);
                     intent.putExtra(COURSE_ID_KEY, course.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
                 break;
             case CHILD:
-                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_delete));
+                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_delete));
                 holder.courseFab.setOnClickListener(v -> {
                     if(currCourseListener != null){
                         currCourseListener.onCourseSelected(position, course);
@@ -112,8 +106,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         }
     }
 
+    public interface CourseListener {
+        void onCourseSelected(int position, Course course);
+    }
+
     @Override
     public int getItemCount() {
-        return uCourses.size();
+        return currCourses.size();
     }
 }

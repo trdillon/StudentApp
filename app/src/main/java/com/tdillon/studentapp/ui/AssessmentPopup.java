@@ -16,31 +16,23 @@ import java.util.List;
 
 public class AssessmentPopup extends RecyclerView.Adapter<AssessmentPopup.AssessmentViewHolder> {
 
-    private List<Assessment> uAssessments;
+    private List<Assessment> currAssessments;
     private AssessmentListener currAssessmentListener;
 
-    public AssessmentPopup(List<Assessment> uAssessments) {
+    AssessmentPopup(List<Assessment> currAssessments) {
         super();
-        this.uAssessments = uAssessments;
+        this.currAssessments = currAssessments;
     }
 
     static class AssessmentViewHolder extends RecyclerView.ViewHolder {
         TextView tvAssessmentTitle;
         ImageView ivIcon;
 
-        public AssessmentViewHolder(View itemView) {
+        AssessmentViewHolder(View itemView) {
             super(itemView);
             tvAssessmentTitle = itemView.findViewById(R.id.tv_assessment_title);
             ivIcon = itemView.findViewById(R.id.ivIcon);
         }
-    }
-
-    public interface AssessmentListener {
-        void onAssessmentSelected(int position, Assessment assessment);
-    }
-
-    public void setAssessmentListener(AssessmentPopup.AssessmentListener currAssessmentListener) {
-        this.currAssessmentListener = currAssessmentListener;
     }
 
     @NonNull
@@ -51,7 +43,7 @@ public class AssessmentPopup extends RecyclerView.Adapter<AssessmentPopup.Assess
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentViewHolder holder, final int position) {
-        final Assessment assessment = uAssessments.get(position);
+        final Assessment assessment = currAssessments.get(position);
         holder.tvAssessmentTitle.setText(assessment.getTitle());
         holder.itemView.setOnClickListener(view -> {
             if(currAssessmentListener != null) {
@@ -60,8 +52,16 @@ public class AssessmentPopup extends RecyclerView.Adapter<AssessmentPopup.Assess
         });
     }
 
+    public interface AssessmentListener {
+        void onAssessmentSelected(int position, Assessment assessment);
+    }
+
+    void setAssessmentListener(AssessmentPopup.AssessmentListener currAssessmentListener) {
+        this.currAssessmentListener = currAssessmentListener;
+    }
+
     @Override
     public int getItemCount() {
-        return uAssessments.size();
+        return currAssessments.size();
     }
 }

@@ -24,17 +24,23 @@ import butterknife.OnClick;
 
 public class MentorActivity extends AppCompatActivity implements MentorAdapter.MentorListener {
 
-    @BindView(R.id.mentor_recycler_view)
-    RecyclerView aMentorRecyclerView;
+    private List<Mentor> mentorData = new ArrayList<>();
+    private MentorAdapter mentorAdapter;
 
-    @OnClick(R.id.fab)
-    void fabClickHandler() {
+    @BindView(R.id.mentor_recycler_view)
+    RecyclerView rvMentor;
+
+    @OnClick(R.id.mentor_add_btn)
+    void handleAddBtn() {
         Intent intent = new Intent(this, MentorEditActivity.class);
         startActivity(intent);
     }
 
-    private List<Mentor> mentorData = new ArrayList<>();
-    private MentorAdapter aMentorAdapter;
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
         final Observer<List<Mentor>> mentorObserver =
@@ -42,31 +48,26 @@ public class MentorActivity extends AppCompatActivity implements MentorAdapter.M
                     mentorData.clear();
                     mentorData.addAll(mentorEntities);
 
-                    if(aMentorAdapter == null) {
-                        aMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN, this);
-                        aMentorRecyclerView.setAdapter(aMentorAdapter);
+                    if(mentorAdapter == null) {
+                        mentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN, this);
+                        rvMentor.setAdapter(mentorAdapter);
                     } else {
-                        aMentorAdapter.notifyDataSetChanged();
+                        mentorAdapter.notifyDataSetChanged();
                     }
                 };
-        MentorVM aMentorVM = new ViewModelProvider(this).get(MentorVM.class);
-        aMentorVM.vmMentors.observe(this, mentorObserver);
+
+        MentorVM mentorVM = new ViewModelProvider(this).get(MentorVM.class);
+        mentorVM.vmMentors.observe(this, mentorObserver);
     }
 
     private void initRecyclerView() {
-        aMentorRecyclerView.setHasFixedSize(true);
+        rvMentor.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        aMentorRecyclerView.setLayoutManager(layoutManager);
+        rvMentor.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onMentorSelected(int position, Mentor mentor) {
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

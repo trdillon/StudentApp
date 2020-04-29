@@ -34,6 +34,12 @@ import static com.tdillon.studentapp.util.Constants.TERM_ID_KEY;
 
 public class TermDetailsActivity extends AppCompatActivity implements CourseAdapter.CourseListener {
 
+    private List<Course> courseData = new ArrayList<>();
+    private List<Course> unassignedCourses = new ArrayList<>();
+    private int termID;
+    private CourseAdapter courseAdapter;
+    private EditorVM editorVM;
+
     @BindView(R.id.term_detail_start)
     TextView tvTermStartDate;
 
@@ -41,21 +47,21 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
     TextView tvTermEndDate;
 
     @BindView(R.id.rview_term_detail_course)
-    RecyclerView aCourseRecyclerView;
+    RecyclerView rvCourse;
 
     @BindView(R.id.fab_add_course)
     FloatingActionButton fabAddCourse;
 
-    private List<Course> courseData = new ArrayList<>();
-    private List<Course> unassignedCourses = new ArrayList<>();
-    private int termId;
-    private CourseAdapter aCourseAdapter;
-    private EditorVM aViewModel;
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
+        editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
-        aViewModel.vmLiveTerm.observe(this, term -> {
+        editorVM.vmLiveTerm.observe(this, term -> {
             tvTermStartDate.setText(TextFormatter.getDateFormatted(term.getStartDate()));
             tvTermEndDate.setText(TextFormatter.getDateFormatted(term.getEndDate()));
         });
@@ -65,12 +71,12 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
                     courseData.clear();
                     courseData.addAll(courseEntities);
 
-                    if(aCourseAdapter == null) {
-                        aCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, this);
-                        aCourseRecyclerView.setAdapter(aCourseAdapter);
+                    if(courseAdapter == null) {
+                        courseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, this);
+                        rvCourse.setAdapter(courseAdapter);
                     }
                     else {
-                        aCourseAdapter.notifyDataSetChanged();
+                        courseAdapter.notifyDataSetChanged();
                     }
                 };
 
@@ -82,21 +88,21 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            termId = extras.getInt(TERM_ID_KEY);
-            aViewModel.loadTerm(termId);
+            termID = extras.getInt(TERM_ID_KEY);
+            editorVM.loadTerm(termID);
         }
         else {
             finish();
         }
 
-        aViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
-        aViewModel.getUnassignedCourses().observe(this, unassignedCourseObserver);
+        editorVM.getCoursesInTerm(termID).observe(this, courseObserver);
+        editorVM.getUnassignedCourses().observe(this, unassignedCourseObserver);
     }
 
     private void initRecyclerView() {
-        aCourseRecyclerView.setHasFixedSize(true);
+        rvCourse.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        aCourseRecyclerView.setLayoutManager(layoutManager);
+        rvCourse.setLayoutManager(layoutManager);
     }
 
     @OnClick(R.id.fab_add_course)
@@ -108,25 +114,24 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         builder.setPositiveButton("New", (dialog, id) -> {
             dialog.dismiss();
             Intent intent = new Intent(this, CourseEditActivity.class);
-            intent.putExtra(TERM_ID_KEY, termId);
+            intent.putExtra(TERM_ID_KEY, termID);
             this.startActivity(intent);
         });
         builder.setNegativeButton("Existing", (dialog, id) -> {
-            // Ensure at least once unassigned course is available
+            //Check if there are any unassigned courses
             if(unassignedCourses.size() >= 1) {
                 final CourseDropdown menu = new CourseDropdown(this, unassignedCourses);
                 menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-                menu.setWidth(getPxFromDp(200));
+                menu.setWidth(getPxFromDp());
                 menu.setOutsideTouchable(true);
                 menu.setFocusable(true);
                 menu.showAsDropDown(fabAddCourse);
                 menu.setCourseListener((position, course) -> {
                     menu.dismiss();
-                    course.setTermId(termId);
-                    aViewModel.overwriteCourse(course, termId);
+                    course.setTermId(termID);
+                    editorVM.overwriteCourse(course, termID);
                 });
             }
-            // No unassigned courses.  Notify user.
             else {
                 Toast.makeText(getApplicationContext(), "There are no unassigned courses. Please create a new course.", Toast.LENGTH_SHORT).show();
             }
@@ -138,7 +143,7 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
     @OnClick(R.id.fab_edit_term)
     public void editTerm() {
         Intent intent = new Intent(this, TermEditActivity.class);
-        intent.putExtra(TERM_ID_KEY, termId);
+        intent.putExtra(TERM_ID_KEY, termID);
         this.startActivity(intent);
         finish();
     }
@@ -151,24 +156,18 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
         builder.setIcon(android.R.drawable.ic_dialog_alert);
         builder.setPositiveButton("Continue", (dialog, id) -> {
             dialog.dismiss();
-            aViewModel.overwriteCourse(course, -1);
-            aCourseAdapter.notifyDataSetChanged();
+            editorVM.overwriteCourse(course, -1);
+            courseAdapter.notifyDataSetChanged();
         });
         builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    private int getPxFromDp(int dp) {
-        return (int) (dp * getResources().getDisplayMetrics().density);
+    private int getPxFromDp() {
+        return (int) (200 * getResources().getDisplayMetrics().density);
     }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

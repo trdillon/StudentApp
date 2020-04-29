@@ -15,7 +15,7 @@ import com.tdillon.studentapp.R;
 public class AlertReceiver extends BroadcastReceiver {
 
     static int notificationID;
-    String CHANNEL_ID = "channel";
+    String CHANNEL_ID = "channel_id";
 
     @Override
     public void onReceive(Context context, Intent intent) {

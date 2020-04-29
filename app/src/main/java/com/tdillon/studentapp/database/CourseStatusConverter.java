@@ -6,8 +6,9 @@ import androidx.room.TypeConverter;
 
 import com.tdillon.studentapp.model.CourseStatus;
 
-public class CourseStatusConverter {
+class CourseStatusConverter {
 
+    //Converter for CourseStatus enum
     @TypeConverter
     public static String fromCourseStatusToString(CourseStatus courseStatus) {
         if(courseStatus == null) {

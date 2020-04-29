@@ -19,39 +19,13 @@ import static com.tdillon.studentapp.util.Constants.MENTOR_ID_KEY;
 
 public class MentorDetailsActivity extends AppCompatActivity {
 
+    private int mentorID;
+
     @BindView(R.id.mentor_detail_email)
     TextView tvMentorEmail;
 
     @BindView(R.id.mentor_detail_phone)
     TextView tvMentorPhone;
-
-    private int mentorId;
-    private EditorVM aViewModel;
-
-    private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
-
-        aViewModel.vmLiveMentor.observe(this, mentor -> {
-            tvMentorEmail.setText(mentor.getEmail());
-            tvMentorPhone.setText(mentor.getPhone());
-        });
-
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            mentorId = extras.getInt(MENTOR_ID_KEY);
-            aViewModel.loadMentor(mentorId);
-        } else {
-            finish();
-        }
-    }
-
-    @OnClick(R.id.fab_edit_mentor)
-    public void openEditActivity() {
-        Intent intent = new Intent(this, MentorEditActivity.class);
-        intent.putExtra(MENTOR_ID_KEY, mentorId);
-        this.startActivity(intent);
-        finish();
-    }
 
     @OnClick(R.id.button_home)
     public void showHome(View view) {
@@ -59,6 +33,31 @@ public class MentorDetailsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void initViewModel() {
+        EditorVM editorVM = new ViewModelProvider(this).get(EditorVM.class);
+
+        editorVM.vmLiveMentor.observe(this, mentor -> {
+            tvMentorEmail.setText(mentor.getEmail());
+            tvMentorPhone.setText(mentor.getPhone());
+        });
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            mentorID = extras.getInt(MENTOR_ID_KEY);
+            editorVM.loadMentor(mentorID);
+        } else {
+            finish();
+        }
+    }
+
+    @OnClick(R.id.fab_edit_mentor)
+    public void editMentor() {
+        Intent intent = new Intent(this, MentorEditActivity.class);
+        intent.putExtra(MENTOR_ID_KEY, mentorID);
+        this.startActivity(intent);
+        finish();
+    }
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

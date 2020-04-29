@@ -20,32 +20,13 @@ import static com.tdillon.studentapp.util.Constants.ASSESSMENT_ID_KEY;
 
 public class AssessmentDetailsActivity extends AppCompatActivity {
 
+    private int assessmentId;
+
     @BindView(R.id.asmt_detail_date)
     TextView tvAssessmentDate;
 
     @BindView(R.id.asmt_detail_type)
     TextView tvAssessmentType;
-
-    private int assessmentId;
-    private EditorVM aViewModel;
-
-    private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
-
-        aViewModel.vmLiveAssessment.observe(this, assessment -> {
-            tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
-            tvAssessmentType.setText(assessment.getAssessmentType().toString());
-        });
-
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            assessmentId = extras.getInt(ASSESSMENT_ID_KEY);
-            aViewModel.loadAssessment(assessmentId);
-        }
-        else {
-            finish();
-        }
-    }
 
     @OnClick(R.id.fab_edit_assessment)
     public void editAssessment() {
@@ -59,6 +40,24 @@ public class AssessmentDetailsActivity extends AppCompatActivity {
     public void showHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void initViewModel() {
+        EditorVM editorVM = new ViewModelProvider(this).get(EditorVM.class);
+
+        editorVM.vmLiveAssessment.observe(this, assessment -> {
+            tvAssessmentDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
+            tvAssessmentType.setText(assessment.getAssessmentType().toString());
+        });
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            assessmentId = extras.getInt(ASSESSMENT_ID_KEY);
+            editorVM.loadAssessment(assessmentId);
+        }
+        else {
+            finish();
+        }
     }
 
     @Override

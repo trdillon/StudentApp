@@ -1,8 +1,11 @@
 package com.tdillon.studentapp.model;
 
+import androidx.annotation.NonNull;
+
 public enum CourseStatus {
 
     PLAN_TO_TAKE {
+        @NonNull
         @Override
         public String toString() {
             return "Plan to take";
@@ -10,6 +13,7 @@ public enum CourseStatus {
     },
 
     IN_PROGRESS {
+        @NonNull
         @Override
         public String toString() {
             return "In progress";
@@ -17,6 +21,7 @@ public enum CourseStatus {
     },
 
     PASSED {
+        @NonNull
         @Override
         public String toString() {
             return "Passed";
@@ -24,6 +29,7 @@ public enum CourseStatus {
     },
 
     DROPPED {
+        @NonNull
         @Override
         public String toString() {
             return "Dropped";

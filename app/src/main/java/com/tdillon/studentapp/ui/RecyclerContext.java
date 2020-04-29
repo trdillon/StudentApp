@@ -1,7 +1,11 @@
 package com.tdillon.studentapp.ui;
 
+import androidx.annotation.NonNull;
+
 public enum RecyclerContext {
+
     MAIN {
+        @NonNull
         @Override
         public String toString() {
             return "Parent";
@@ -9,6 +13,7 @@ public enum RecyclerContext {
     },
 
     CHILD {
+        @NonNull
         @Override
         public String toString() {
             return "Child";
@@ -16,6 +21,7 @@ public enum RecyclerContext {
     },
 
     ADD {
+        @NonNull
         @Override
         public String toString() {
             return "Add";

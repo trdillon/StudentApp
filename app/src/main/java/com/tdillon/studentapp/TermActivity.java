@@ -24,40 +24,16 @@ import butterknife.OnClick;
 
 public class TermActivity extends AppCompatActivity {
 
-    @BindView(R.id.term_recycler_view)
-    RecyclerView aTermRecyclerView;
+    private List<Term> termData = new ArrayList<>();
+    private TermAdapter termAdapter;
 
-    @OnClick(R.id.fab)
-    void fabClickHandler() {
+    @BindView(R.id.term_recycler_view)
+    RecyclerView rvTerm;
+
+    @OnClick(R.id.term_add_btn)
+    void handleAddBtn() {
         Intent intent = new Intent(this, TermEditActivity.class);
         startActivity(intent);
-    }
-
-    private List<Term> termData = new ArrayList<>();
-    private TermAdapter aTermAdapter;
-
-    private void initViewModel() {
-        final Observer<List<Term>> termObserver =
-                termEntities -> {
-                    termData.clear();
-                    termData.addAll(termEntities);
-
-                    if(aTermAdapter == null) {
-                        aTermAdapter = new TermAdapter(termData, TermActivity.this, RecyclerContext.MAIN);
-                        aTermRecyclerView.setAdapter(aTermAdapter);
-                    }
-                    else {
-                        aTermAdapter.notifyDataSetChanged();
-                    }
-                };
-        TermVM aTermVM = new ViewModelProvider(this).get(TermVM.class);
-        aTermVM.vmTerms.observe(this, termObserver);
-    }
-
-    private void initRecyclerView() {
-        aTermRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        aTermRecyclerView.setLayoutManager(layoutManager);
     }
 
     @OnClick(R.id.button_home)
@@ -66,6 +42,30 @@ public class TermActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void initViewModel() {
+        final Observer<List<Term>> termObserver =
+                termEntities -> {
+                    termData.clear();
+                    termData.addAll(termEntities);
+
+                    if(termAdapter == null) {
+                        termAdapter = new TermAdapter(termData, TermActivity.this, RecyclerContext.MAIN);
+                        rvTerm.setAdapter(termAdapter);
+                    }
+                    else {
+                        termAdapter.notifyDataSetChanged();
+                    }
+                };
+        TermVM termVM = new ViewModelProvider(this).get(TermVM.class);
+        termVM.vmTerms.observe(this, termObserver);
+    }
+
+    private void initRecyclerView() {
+        rvTerm.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvTerm.setLayoutManager(layoutManager);
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

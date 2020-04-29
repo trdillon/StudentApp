@@ -33,6 +33,7 @@ public class AppRepository {
         rTerms = getAllTerms();
     }
 
+    //Get the database instance
     public static AppRepository getInstance(Context context) {
         if(currInstance == null) {
             currInstance = new AppRepository(context);
@@ -118,13 +119,5 @@ public class AppRepository {
 
     public Term getTermById(int termId) {
         return rDb.termDAO().getTermById(termId);
-    }
-
-    //Clear the database
-    public void databaseWipe() {
-        executor.execute(() -> rDb.assessmentDAO().deleteAllAssessments());
-        executor.execute(() -> rDb.courseDAO().deleteAllCourses());
-        executor.execute(() -> rDb.mentorDAO().deleteAllMentors());
-        executor.execute(() -> rDb.termDAO().deleteAllTerms());
     }
 }

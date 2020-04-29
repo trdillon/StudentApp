@@ -4,8 +4,9 @@ import androidx.room.TypeConverter;
 
 import java.util.Date;
 
-public class DateConverter {
+class DateConverter {
 
+    //Converter for date & timestamp
     @TypeConverter
     public static Date toDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);

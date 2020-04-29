@@ -28,15 +28,15 @@ import static com.tdillon.studentapp.util.Constants.ASSESSMENT_ID_KEY;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.ViewHolder> {
 
-    private final Context uContext;
+    private final Context currContext;
     private final RecyclerContext rContext;
-    private final List<Assessment> uAssessments;
+    private final List<Assessment> currAssessments;
     private AssessmentListener currAssessmentListener;
 
-    public AssessmentAdapter(List<Assessment> uAssessments, Context uContext,
+    public AssessmentAdapter(List<Assessment> currAssessments, Context currContext,
                              RecyclerContext rContext, AssessmentListener currAssessmentListener) {
-        this.uAssessments = uAssessments;
-        this.uContext = uContext;
+        this.currAssessments = currAssessments;
+        this.currContext = currContext;
         this.rContext = rContext;
         this.currAssessmentListener = currAssessmentListener;
     }
@@ -62,12 +62,8 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
         @Override
         public void onClick(View v) {
             currAssessmentListener.onAssessmentSelected(getAdapterPosition(),
-                    uAssessments.get(getAdapterPosition()));
+                    currAssessments.get(getAdapterPosition()));
         }
-    }
-
-    public interface AssessmentListener {
-        void onAssessmentSelected(int position, Assessment assessment);
     }
 
     @NonNull
@@ -80,27 +76,27 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentAdapter.ViewHolder holder, int position) {
-        final Assessment assessment = uAssessments.get(position);
+        final Assessment assessment = currAssessments.get(position);
         holder.tvTitle.setText(assessment.getTitle());
         holder.tvDate.setText(TextFormatter.getDateFormatted(assessment.getDate()));
 
         switch(rContext) {
             case MAIN:
-                holder.asmtFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_edit));
+                holder.asmtFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_edit));
                 holder.asmtImageBtn.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, AssessmentDetailsActivity.class);
+                    Intent intent = new Intent(currContext, AssessmentDetailsActivity.class);
                     intent.putExtra(ASSESSMENT_ID_KEY, assessment.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
 
                 holder.asmtFab.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, AssessmentEditActivity.class);
+                    Intent intent = new Intent(currContext, AssessmentEditActivity.class);
                     intent.putExtra(ASSESSMENT_ID_KEY, assessment.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
                 break;
             case CHILD:
-                holder.asmtFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_delete));
+                holder.asmtFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_delete));
                 holder.asmtFab.setOnClickListener(v -> {
                     if(currAssessmentListener != null) {
                         currAssessmentListener.onAssessmentSelected(position, assessment);
@@ -110,8 +106,12 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
         }
     }
 
+    public interface AssessmentListener {
+        void onAssessmentSelected(int position, Assessment assessment);
+    }
+    
     @Override
     public int getItemCount() {
-        return uAssessments.size();
+        return currAssessments.size();
     }
 }

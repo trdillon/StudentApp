@@ -14,11 +14,9 @@ import java.util.List;
 @Dao
 public interface CourseDAO {
 
+    //Course queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addCourse(Course course);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addAllCourses(List<Course> courses);
 
     @Delete
     void deleteCourse(Course course);
@@ -31,10 +29,4 @@ public interface CourseDAO {
 
     @Query("SELECT * FROM courses WHERE termId = :termId")
     LiveData<List<Course>> getCoursesByTerm(final int termId);
-
-    @Query("DELETE FROM courses")
-    int deleteAllCourses();
-
-    @Query("SELECT COUNT(*) FROM courses")
-    int getCourseCount();
 }

@@ -16,31 +16,23 @@ import java.util.List;
 
 public class MentorPopup extends RecyclerView.Adapter<MentorPopup.MentorViewHolder> {
 
-    private List<Mentor> uMentors;
+    private List<Mentor> currMentors;
     private MentorPopup.MentorListener currMentorListener;
 
-    public MentorPopup(List<Mentor> uMentors) {
+    MentorPopup(List<Mentor> currMentors) {
         super();
-        this.uMentors = uMentors;
+        this.currMentors = currMentors;
     }
 
     static class MentorViewHolder extends RecyclerView.ViewHolder {
         TextView tvMentorName;
         ImageView ivIcon;
 
-        public MentorViewHolder(View itemView) {
+        MentorViewHolder(View itemView) {
             super(itemView);
             tvMentorName = itemView.findViewById(R.id.tv_mentor_name);
             ivIcon = itemView.findViewById(R.id.ivIcon);
         }
-    }
-
-    public interface MentorListener {
-        void onMentorSelected(int position, Mentor mentor);
-    }
-
-    public void setMentorListener(MentorPopup.MentorListener currMentorListener) {
-        this.currMentorListener = currMentorListener;
     }
 
     @NonNull
@@ -51,7 +43,7 @@ public class MentorPopup extends RecyclerView.Adapter<MentorPopup.MentorViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MentorPopup.MentorViewHolder holder, final int position) {
-        final Mentor mentor = uMentors.get(position);
+        final Mentor mentor = currMentors.get(position);
         holder.tvMentorName.setText(mentor.getName());
         holder.itemView.setOnClickListener(view -> {
             if(currMentorListener != null) {
@@ -60,8 +52,16 @@ public class MentorPopup extends RecyclerView.Adapter<MentorPopup.MentorViewHold
         });
     }
 
+    public interface MentorListener {
+        void onMentorSelected(int position, Mentor mentor);
+    }
+
+    void setMentorListener(MentorPopup.MentorListener currMentorListener) {
+        this.currMentorListener = currMentorListener;
+    }
+
     @Override
     public int getItemCount() {
-        return uMentors.size();
+        return currMentors.size();
     }
 }

@@ -21,12 +21,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     private static final Object LOCK = new Object();
 
-    //Model DAOs
     public abstract AssessmentDAO assessmentDAO();
     public abstract CourseDAO courseDAO();
     public abstract MentorDAO mentorDAO();
     public abstract TermDAO termDAO();
 
+    //Create the database instance to return to the repository
     public static AppDatabase getInstance(Context context) {
         if(instance == null) {
             synchronized (LOCK) {

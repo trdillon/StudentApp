@@ -33,6 +33,11 @@ import static com.tdillon.studentapp.util.Constants.TERM_ID_KEY;
 
 public class TermEditActivity extends AppCompatActivity {
 
+    private EditorVM editorVM;
+    private boolean isEditing;
+    private List<Course> courseData = new ArrayList<>();
+    int termID;
+
     @BindView(R.id.term_edit_title)
     EditText tvTermTitle;
 
@@ -48,16 +53,32 @@ public class TermEditActivity extends AppCompatActivity {
     @BindView(R.id.term_edit_end_btn)
     ImageButton btnEndDate;
 
-    private EditorVM aViewModel;
-    private boolean aEditing;
-    private List<Course> courseData = new ArrayList<>();
-    int termId;
+    @Override
+    public void onBackPressed() {
+        addTerm();
+    }
+
+    @OnClick(R.id.fab_save_term)
+    public void handleSaveBtn(View view) {
+        addTerm();
+    }
+
+    @OnClick(R.id.fab_delete_term)
+    public void handleDeleteBtn(View view) {
+        deleteTerm();
+    }
+
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
+        editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
-        aViewModel.vmLiveTerm.observe(this, term -> {
-            if(term != null && !aEditing) {
+        editorVM.vmLiveTerm.observe(this, term -> {
+            if(term != null && !isEditing) {
                 tvTermTitle.setText(term.getTitle());
                 tvTermStartDate.setText(TextFormatter.getDateFormatted(term.getStartDate()));
                 tvTermEndDate.setText(TextFormatter.getDateFormatted(term.getEndDate()));
@@ -67,12 +88,11 @@ public class TermEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             setTitle(getString(R.string.new_term));
-            boolean aNewTerm = true;
         }
         else {
             setTitle(getString(R.string.edit_term));
-            termId = extras.getInt(TERM_ID_KEY);
-            aViewModel.loadTerm(termId);
+            termID = extras.getInt(TERM_ID_KEY);
+            editorVM.loadTerm(termID);
         }
 
         final Observer<List<Course>> courseObserver =
@@ -81,19 +101,14 @@ public class TermEditActivity extends AppCompatActivity {
                     courseData.addAll(courseEntities);
                 };
 
-        aViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
+        editorVM.getCoursesInTerm(termID).observe(this, courseObserver);
     }
 
     public void addTerm() {
         try {
             Date startDate = TextFormatter.getDateFormattedString(tvTermStartDate.getText().toString());
             Date endDate = TextFormatter.getDateFormattedString(tvTermEndDate.getText().toString());
-            aViewModel.addTerm(tvTermTitle.getText().toString(), startDate, endDate);
-            Log.v("Saved term",tvTermTitle.toString());
-
-        }
-        catch (ParseException e) {
-            Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
+            editorVM.addTerm(tvTermTitle.getText().toString(), startDate, endDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,8 +116,8 @@ public class TermEditActivity extends AppCompatActivity {
     }
 
     private void deleteTerm() {
-        if(aViewModel.vmLiveTerm.getValue() != null) {
-            String termTitle = aViewModel.vmLiveTerm.getValue().getTitle();
+        if(editorVM.vmLiveTerm.getValue() != null) {
+            String termTitle = editorVM.vmLiveTerm.getValue().getTitle();
             if(courseData != null && courseData.size() != 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Delete " + termTitle + "?");
@@ -112,7 +127,7 @@ public class TermEditActivity extends AppCompatActivity {
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
                 builder.setPositiveButton("Yes", (dialog, id) -> {
                     dialog.dismiss();
-                    aViewModel.deleteTerm();
+                    editorVM.deleteTerm();
                     finish();
                 });
                 builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
@@ -127,7 +142,7 @@ public class TermEditActivity extends AppCompatActivity {
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
                 builder.setPositiveButton("Yes", (dialog, id) -> {
                     dialog.dismiss();
-                    aViewModel.deleteTerm();
+                    editorVM.deleteTerm();
                     finish();
                 });
                 builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
@@ -170,34 +185,13 @@ public class TermEditActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        addTerm();
-    }
-
-    @OnClick(R.id.fab_save_term)
-    public void handleSaveBtn(View view) {
-        addTerm();
-    }
-
-    @OnClick(R.id.fab_delete_term)
-    public void handleDeleteBtn(View view) {
-        deleteTerm();
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_edit);
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {
-            aEditing = savedInstanceState.getBoolean(EDITING_KEY);
+            isEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
         initViewModel();
     }

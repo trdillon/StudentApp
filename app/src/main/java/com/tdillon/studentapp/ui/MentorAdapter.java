@@ -27,14 +27,14 @@ import static com.tdillon.studentapp.util.Constants.MENTOR_ID_KEY;
 
 public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder> {
 
-    private final Context uContext;
+    private final Context currContext;
     private final RecyclerContext rContext;
-    private final List<Mentor> uMentors;
+    private final List<Mentor> currMentors;
     private MentorListener currMentorListener;
 
-    public MentorAdapter(List<Mentor> uMentors, Context uContext, RecyclerContext rContext, MentorListener currMentorListener) {
-        this.uMentors = uMentors;
-        this.uContext = uContext;
+    public MentorAdapter(List<Mentor> currMentors, Context currContext, RecyclerContext rContext, MentorListener currMentorListener) {
+        this.currMentors = currMentors;
+        this.currContext = currContext;
         this.rContext = rContext;
         this.currMentorListener = currMentorListener;
     }
@@ -59,12 +59,8 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
 
         @Override
         public void onClick(View v) {
-            currMentorListener.onMentorSelected(getAdapterPosition(), uMentors.get(getAdapterPosition()));
+            currMentorListener.onMentorSelected(getAdapterPosition(), currMentors.get(getAdapterPosition()));
         }
-    }
-
-    public interface MentorListener {
-        void onMentorSelected(int position, Mentor mentor);
     }
 
     @NonNull
@@ -77,27 +73,27 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MentorAdapter.ViewHolder holder, int position) {
-        final Mentor mentor = uMentors.get(position);
+        final Mentor mentor = currMentors.get(position);
         holder.tvName.setText(mentor.getName());
         holder.tvEmail.setText(mentor.getEmail());
 
         switch(rContext) {
             case MAIN:
-                holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_edit));
+                holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_edit));
                 holder.mentorImageBtn.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, MentorDetailsActivity.class);
+                    Intent intent = new Intent(currContext, MentorDetailsActivity.class);
                     intent.putExtra(MENTOR_ID_KEY, mentor.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
 
                 holder.mentorFab.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, MentorEditActivity.class);
+                    Intent intent = new Intent(currContext, MentorEditActivity.class);
                     intent.putExtra(MENTOR_ID_KEY, mentor.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
                 break;
             case CHILD:
-                holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_delete));
+                holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_delete));
                 holder.mentorFab.setOnClickListener(v -> {
                     if(currMentorListener != null) {
                         currMentorListener.onMentorSelected(position, mentor);
@@ -107,8 +103,12 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         }
     }
 
+    public interface MentorListener {
+        void onMentorSelected(int position, Mentor mentor);
+    }
+
     @Override
     public int getItemCount() {
-        return uMentors.size();
+        return currMentors.size();
     }
 }

@@ -28,17 +28,17 @@ import static com.tdillon.studentapp.util.Constants.TERM_ID_KEY;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
 
-    private final Context uContext;
+    private final Context currContext;
     private final RecyclerContext rContext;
-    private final List<Term> uTerms;
+    private final List<Term> currTerms;
 
-    public TermAdapter(List<Term> uTerms, Context uContext, RecyclerContext rContext) {
-        this.uTerms = uTerms;
-        this.uContext = uContext;
+    public TermAdapter(List<Term> currTerms, Context currContext, RecyclerContext rContext) {
+        this.currTerms = currTerms;
+        this.currContext = currContext;
         this.rContext = rContext;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.view_term_title)
         TextView tvTitle;
         @BindView(R.id.view_term_dates)
@@ -64,7 +64,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TermAdapter.ViewHolder holder, int position) {
-        final Term term = uTerms.get(position);
+        final Term term = currTerms.get(position);
         holder.tvTitle.setText(term.getTitle());
         String startEnd = TextFormatter.getDateFormatted(term.getStartDate()) +
                 " to " + TextFormatter.getDateFormatted(term.getEndDate());
@@ -72,27 +72,27 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
 
         switch(rContext) {
             case MAIN:
-                holder.termFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_edit));
+                holder.termFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_edit));
                 holder.termImageBtn.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, TermDetailsActivity.class);
+                    Intent intent = new Intent(currContext, TermDetailsActivity.class);
                     intent.putExtra(TERM_ID_KEY, term.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
 
                 holder.termFab.setOnClickListener(v -> {
-                    Intent intent = new Intent(uContext, TermEditActivity.class);
+                    Intent intent = new Intent(currContext, TermEditActivity.class);
                     intent.putExtra(TERM_ID_KEY, term.getId());
-                    uContext.startActivity(intent);
+                    currContext.startActivity(intent);
                 });
                 break;
             case CHILD:
-                holder.termFab.setImageDrawable(ContextCompat.getDrawable(uContext, R.drawable.ic_delete));
+                holder.termFab.setImageDrawable(ContextCompat.getDrawable(currContext, R.drawable.ic_delete));
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return uTerms.size();
+        return currTerms.size();
     }
 }

@@ -20,6 +20,10 @@ import static com.tdillon.studentapp.util.Constants.MENTOR_ID_KEY;
 
 public class MentorEditActivity extends AppCompatActivity {
 
+    private EditorVM editorVM;
+    private boolean isEditing;
+    private int courseID = -1;
+
     @BindView(R.id.mentor_edit_name)
     EditText tvMentorName;
 
@@ -28,46 +32,6 @@ public class MentorEditActivity extends AppCompatActivity {
 
     @BindView(R.id.mentor_edit_phone)
     EditText tvMentorPhone;
-
-    private EditorVM aViewModel;
-    private boolean aNewMentor, aEditing;
-    private int courseId = -1;
-
-    private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
-
-        aViewModel.vmLiveMentor.observe(this, mentor -> {
-            if(mentor != null && !aEditing) {
-                tvMentorName.setText(mentor.getName());
-                tvMentorEmail.setText(mentor.getEmail());
-                tvMentorPhone.setText(mentor.getPhone());
-            }
-        });
-
-        Bundle extras = getIntent().getExtras();
-        if(extras == null) {
-            setTitle(getString(R.string.new_mentor));
-            aNewMentor = true;
-        } else if (extras.containsKey(COURSE_ID_KEY)) {
-            courseId = extras.getInt(COURSE_ID_KEY);
-            setTitle(getString(R.string.new_mentor));
-        } else {
-            setTitle(getString(R.string.edit_mentor));
-            int mentorId = extras.getInt(MENTOR_ID_KEY);
-            aViewModel.loadMentor(mentorId);
-        }
-    }
-
-    public void addMentor() {
-        aViewModel.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
-        finish();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(EDITING_KEY, true);
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onBackPressed() {
@@ -85,15 +49,51 @@ public class MentorEditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void initViewModel() {
+        editorVM = new ViewModelProvider(this).get(EditorVM.class);
+
+        editorVM.vmLiveMentor.observe(this, mentor -> {
+            if(mentor != null && !isEditing) {
+                tvMentorName.setText(mentor.getName());
+                tvMentorEmail.setText(mentor.getEmail());
+                tvMentorPhone.setText(mentor.getPhone());
+            }
+        });
+
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            setTitle(getString(R.string.new_mentor));
+        }
+        else if (extras.containsKey(COURSE_ID_KEY)) {
+            courseID = extras.getInt(COURSE_ID_KEY);
+            setTitle(getString(R.string.new_mentor));
+        }
+        else {
+            setTitle(getString(R.string.edit_mentor));
+            int mentorId = extras.getInt(MENTOR_ID_KEY);
+            editorVM.loadMentor(mentorId);
+        }
+    }
+
+    public void addMentor() {
+        editorVM.addMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseID);
+        finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_mentor_edit);
         ButterKnife.bind(this);
 
         if(savedInstanceState != null) {
-            aEditing = savedInstanceState.getBoolean(EDITING_KEY);
+            isEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
 
         initViewModel();

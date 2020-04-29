@@ -42,6 +42,7 @@ public class Course {
         this.termId = termId;
     }
 
+    //Use this constructor - termID will be set when assigned to a term
     public Course(String title, Date startDate, Date expectedEndDate, CourseStatus courseStatus) {
         this.title = title;
         this.startDate = startDate;

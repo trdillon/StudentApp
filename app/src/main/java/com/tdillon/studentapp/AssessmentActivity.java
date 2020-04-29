@@ -24,17 +24,23 @@ import butterknife.OnClick;
 
 public class AssessmentActivity extends AppCompatActivity implements AssessmentAdapter.AssessmentListener {
 
-    @BindView(R.id.assessment_recycler_view)
-    RecyclerView aAssessmentRecyclerView;
+    private List<Assessment> assessmentData = new ArrayList<>();
+    private AssessmentAdapter assessmentAdapter;
 
-    @OnClick(R.id.fab)
-    void fabClickHandler() {
+    @BindView(R.id.assessment_recycler_view)
+    RecyclerView rvAssessment;
+
+    @OnClick(R.id.asmt_add_btn)
+    void handleAddBtn() {
         Intent intent = new Intent(this, AssessmentEditActivity.class);
         startActivity(intent);
     }
 
-    private List<Assessment> assessmentData = new ArrayList<>();
-    private AssessmentAdapter aAssessmentAdapter;
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
         final Observer<List<Assessment>> assessmentObserver =
@@ -42,32 +48,26 @@ public class AssessmentActivity extends AppCompatActivity implements AssessmentA
                     assessmentData.clear();
                     assessmentData.addAll(assessmentEntities);
 
-                    if(aAssessmentAdapter == null) {
-                        aAssessmentAdapter = new AssessmentAdapter(assessmentData, AssessmentActivity.this, RecyclerContext.MAIN, this);
-                        aAssessmentRecyclerView.setAdapter(aAssessmentAdapter);
+                    if(assessmentAdapter == null) {
+                        assessmentAdapter = new AssessmentAdapter(assessmentData, AssessmentActivity.this, RecyclerContext.MAIN, this);
+                        rvAssessment.setAdapter(assessmentAdapter);
                     }
                     else {
-                        aAssessmentAdapter.notifyDataSetChanged();
+                        assessmentAdapter.notifyDataSetChanged();
                     }
                 };
-        AssessmentVM aAssessmentVM = new ViewModelProvider(this).get(AssessmentVM.class);
-        aAssessmentVM.vmAssessments.observe(this, assessmentObserver);
+        AssessmentVM assessmentVM = new ViewModelProvider(this).get(AssessmentVM.class);
+        assessmentVM.vmAssessments.observe(this, assessmentObserver);
     }
 
     private void initRecyclerView() {
-        aAssessmentRecyclerView.setHasFixedSize(true);
+        rvAssessment.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        aAssessmentRecyclerView.setLayoutManager(layoutManager);
+        rvAssessment.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onAssessmentSelected(int position, Assessment assessment) {
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

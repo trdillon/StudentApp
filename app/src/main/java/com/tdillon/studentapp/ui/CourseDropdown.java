@@ -1,5 +1,6 @@
 package com.tdillon.studentapp.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +17,27 @@ import java.util.List;
 
 public class CourseDropdown extends PopupWindow {
 
-    private Context uContext;
-    private RecyclerView rPopup;
-    private List<Course> uCourses;
+    private Context currContext;
+    private List<Course> currCourses;
     private CoursePopup coursePopup;
 
-    public CourseDropdown(Context uContext, List<Course> uCourses) {
-        super(uContext);
-        this.uContext = uContext;
-        this.uCourses = uCourses;
+    public CourseDropdown(Context currContext, List<Course> currCourses) {
+        super(currContext);
+        this.currContext = currContext;
+        this.currCourses = currCourses;
         setupView();
     }
 
     private void setupView() {
-        View view = LayoutInflater.from(uContext).inflate(R.layout.popup_view, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(currContext).inflate(R.layout.popup_view, null);
 
-        rPopup = view.findViewById(R.id.rv_popup);
-        rPopup.setHasFixedSize(true);
-        rPopup.setLayoutManager(new LinearLayoutManager(uContext, LinearLayoutManager.VERTICAL, false));
-        rPopup.addItemDecoration(new DividerItemDecoration(uContext, LinearLayoutManager.VERTICAL));
+        RecyclerView rv = view.findViewById(R.id.rv_popup);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(currContext, LinearLayoutManager.VERTICAL, false));
+        rv.addItemDecoration(new DividerItemDecoration(currContext, LinearLayoutManager.VERTICAL));
 
-        coursePopup = new CoursePopup(uCourses);
-        rPopup.setAdapter(coursePopup);
+        coursePopup = new CoursePopup(currCourses);
+        rv.setAdapter(coursePopup);
 
         setContentView(view);
     }

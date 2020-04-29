@@ -1,5 +1,6 @@
 package com.tdillon.studentapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -7,7 +8,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,10 +22,8 @@ import com.tdillon.studentapp.util.AlertReceiver;
 import com.tdillon.studentapp.util.TextFormatter;
 import com.tdillon.studentapp.viewmodel.EditorVM;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +34,11 @@ import static com.tdillon.studentapp.util.Constants.EDITING_KEY;
 import static com.tdillon.studentapp.util.Constants.TERM_ID_KEY;
 
 public class CourseEditActivity extends AppCompatActivity {
+
+    private EditorVM editorVM;
+    private boolean isEditing;
+    private int termID = -1;
+    private ArrayAdapter<CourseStatus> courseStatusAdapter;
 
     @BindView(R.id.course_edit_title)
     EditText tvCourseTitle;
@@ -61,16 +64,37 @@ public class CourseEditActivity extends AppCompatActivity {
     @BindView(R.id.text_end_millis)
     EditText tvEndMillis;
 
-    private EditorVM aViewModel;
-    private boolean aEditing;
-    private int termId = -1;
-    private ArrayAdapter<CourseStatus> courseStatusAdapter;
+    @Override
+    public void onBackPressed() {
+        addCourse();
+    }
+
+    @OnClick(R.id.fab_save_course)
+    public void handleSaveBtn(View view) {
+        addCourse();
+    }
+
+    @OnClick(R.id.fab_delete_course)
+    public void handleDeleteBtn(View view) {
+        deleteCourse();
+    }
+
+    @OnClick(R.id.fab_alert_course)
+    public void handleAlertBtn(View view) {
+        alertCourse();
+    }
+
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
-        aViewModel = new ViewModelProvider(this).get(EditorVM.class);
+        editorVM = new ViewModelProvider(this).get(EditorVM.class);
 
-        aViewModel.vmLiveCourse.observe(this, course -> {
-            if(course != null && !aEditing) {
+        editorVM.vmLiveCourse.observe(this, course -> {
+            if(course != null && !isEditing) {
                 tvCourseTitle.setText(course.getTitle());
                 tvCourseStartDate.setText(TextFormatter.getDateFormatted(course.getStartDate()));
                 tvCourseEndDate.setText(TextFormatter.getDateFormatted(course.getExpectedEndDate()));
@@ -83,15 +107,15 @@ public class CourseEditActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
             setTitle(getString(R.string.new_course));
-            boolean aNewCourse = true;
-        } else if (extras.containsKey(TERM_ID_KEY)){ // Check if this is adding a course to a term
-            termId = extras.getInt(TERM_ID_KEY);
-            Log.v("DEBUG", "Extras term ID: " + termId);
+        }
+        else if (extras.containsKey(TERM_ID_KEY)) {
+            termID = extras.getInt(TERM_ID_KEY);
             setTitle(getString(R.string.new_course));
-        } else {
+        }
+        else {
             setTitle(getString(R.string.edit_course));
-            int courseId = extras.getInt(COURSE_ID_KEY);
-            aViewModel.loadCourse(courseId);
+            int courseID = extras.getInt(COURSE_ID_KEY);
+            editorVM.loadCourse(courseID);
         }
     }
 
@@ -99,10 +123,7 @@ public class CourseEditActivity extends AppCompatActivity {
         try {
             Date startDate = TextFormatter.getDateFormattedString(tvCourseStartDate.getText().toString());
             Date endDate = TextFormatter.getDateFormattedString(tvCourseEndDate.getText().toString());
-            aViewModel.addCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), tvNote.getText().toString(), termId);
-            Log.v("Saved Course", tvCourseTitle.toString());
-        } catch (ParseException e) {
-            Log.v("Exception", Objects.requireNonNull(e.getLocalizedMessage()));
+            editorVM.addCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), tvNote.getText().toString(), termID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,15 +131,15 @@ public class CourseEditActivity extends AppCompatActivity {
     }
 
     private void deleteCourse() {
-        if(aViewModel.vmLiveCourse.getValue() != null) {
-            String courseTitle = aViewModel.vmLiveCourse.getValue().getTitle();
+        if(editorVM.vmLiveCourse.getValue() != null) {
+            String courseTitle = editorVM.vmLiveCourse.getValue().getTitle();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Delete " + courseTitle + "?");
             builder.setMessage("Are you sure you want to delete course '" + courseTitle + "'?");
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setPositiveButton("Yes", (dialog, id) -> {
                 dialog.dismiss();
-                aViewModel.deleteCourse();
+                editorVM.deleteCourse();
                 finish();
             });
             builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
@@ -135,7 +156,6 @@ public class CourseEditActivity extends AppCompatActivity {
         long endDateAlert = Long.parseLong(tvEndMillis.getText().toString());
         assert alarmManager != null;
         alarmManager.set(AlarmManager.RTC_WAKEUP, endDateAlert, sender);
-        Log.v("INFO", "Added alert");
     }
 
     @OnClick(R.id.course_edit_start_btn)
@@ -154,7 +174,7 @@ public class CourseEditActivity extends AppCompatActivity {
     @OnClick(R.id.course_edit_end_btn)
     public void courseEndDatePicker() {
         final Calendar myCalendar = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+        @SuppressLint("SetTextI18n") DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -185,39 +205,15 @@ public class CourseEditActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        addCourse();
-    }
-
-    @OnClick(R.id.fab_save_course)
-    public void handleSaveBtn(View view) {
-        addCourse();
-    }
-
-    @OnClick(R.id.fab_delete_course)
-    public void handleDeleteBtn(View view) {
-        deleteCourse();
-    }
-
-    @OnClick(R.id.fab_alert_course)
-    public void handleAlertBtn(View view) {
-        alertCourse();
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_edit);
         ButterKnife.bind(this);
+
         if(savedInstanceState != null) {
-            aEditing = savedInstanceState.getBoolean(EDITING_KEY);
+            isEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
+
         initViewModel();
         addSpinnerItems();
     }

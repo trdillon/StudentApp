@@ -25,17 +25,23 @@ import butterknife.OnClick;
 
 public class CourseActivity extends AppCompatActivity implements CourseAdapter.CourseListener {
 
-    @BindView(R.id.course_recycler_view)
-    RecyclerView aCourseRecyclerView;
+    private List<Course> courseData = new ArrayList<>();
+    private CourseAdapter courseAdapter;
 
-    @OnClick(R.id.fab)
-    void fabClickHandler() {
+    @BindView(R.id.course_recycler_view)
+    RecyclerView rvCourse;
+
+    @OnClick(R.id.course_add_btn)
+    void handleAddBtn() {
         Intent intent = new Intent(this, CourseEditActivity.class);
         startActivity(intent);
     }
 
-    private List<Course> courseData = new ArrayList<>();
-    private CourseAdapter aCourseAdapter;
+    @OnClick(R.id.button_home)
+    public void showHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private void initViewModel() {
         final Observer<List<Course>> courseObserver =
@@ -43,32 +49,26 @@ public class CourseActivity extends AppCompatActivity implements CourseAdapter.C
                     courseData.clear();
                     courseData.addAll(courseEntities);
 
-                    if(aCourseAdapter == null) {
-                        aCourseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.MAIN, this);
-                        aCourseRecyclerView.setAdapter(aCourseAdapter);
+                    if(courseAdapter == null) {
+                        courseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.MAIN, this);
+                        rvCourse.setAdapter(courseAdapter);
                     }
                     else {
-                        aCourseAdapter.notifyDataSetChanged();
+                        courseAdapter.notifyDataSetChanged();
                     }
                 };
-        CourseVM aCourseVM = new ViewModelProvider(this).get(CourseVM.class);
-        aCourseVM.vmCourses.observe(this, courseObserver);
+        CourseVM courseVM = new ViewModelProvider(this).get(CourseVM.class);
+        courseVM.vmCourses.observe(this, courseObserver);
     }
 
     private void initRecyclerView() {
-        aCourseRecyclerView.setHasFixedSize(true);
+        rvCourse.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        aCourseRecyclerView.setLayoutManager(layoutManager);
+        rvCourse.setLayoutManager(layoutManager);
     }
 
     @Override
     public void onCourseSelected(int position, Course course) {
-    }
-
-    @OnClick(R.id.button_home)
-    public void showHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

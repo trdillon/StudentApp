@@ -14,11 +14,9 @@ import java.util.List;
 @Dao
 public interface MentorDAO {
 
+    //Mentor queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMentor(Mentor mentor);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addAllMentors(List<Mentor> mentors);
 
     @Delete
     void deleteMentor(Mentor mentor);
@@ -31,10 +29,4 @@ public interface MentorDAO {
 
     @Query("Select * FROM mentors WHERE courseId = :courseId")
     LiveData<List<Mentor>> getMentorsByCourse(final int courseId);
-
-    @Query("DELETE FROM mentors")
-    int deleteAllMentors();
-
-    @Query("SELECT COUNT(*) FROM mentors")
-    int getMentorCount();
 }

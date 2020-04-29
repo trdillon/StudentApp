@@ -14,12 +14,10 @@ import java.util.List;
 @Dao
 public interface AssessmentDAO {
 
+    //Assessment queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addAssessment(Assessment assessment);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addAllAssessments(List<Assessment> assessments);
-
+    
     @Delete
     void deleteAssessment(Assessment assessment);
 
@@ -31,10 +29,4 @@ public interface AssessmentDAO {
 
     @Query("SELECT * FROM assessments WHERE courseId = :courseId")
     LiveData<List<Assessment>> getAssessmentsByCourse(final int courseId);
-
-    @Query("DELETE FROM assessments")
-    int deleteAllAssessments();
-
-    @Query("SELECT COUNT(*) FROM assessments")
-    int getAssessmentCount();
 }
