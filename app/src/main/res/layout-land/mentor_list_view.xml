@@ -55,6 +55,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ADD EMAIL VAR" />
+
+                <TextView
+                    android:id="@+id/view_mentor_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ADD PHONE VAR" />
             </LinearLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

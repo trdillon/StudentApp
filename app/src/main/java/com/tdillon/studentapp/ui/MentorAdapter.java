@@ -46,6 +46,8 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         FloatingActionButton mentorFab;
         @BindView(R.id.view_mentor_email)
         TextView tvEmail;
+        @BindView(R.id.view_mentor_phone)
+        TextView tvPhone;
         @BindView(R.id.btn_mentor_details)
         ImageButton mentorImageBtn;
         MentorListener currMentorListener;
@@ -76,6 +78,7 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         final Mentor mentor = currMentors.get(position);
         holder.tvName.setText(mentor.getName());
         holder.tvEmail.setText(mentor.getEmail());
+        holder.tvPhone.setText(mentor.getPhone());
 
         switch(rContext) {
             case MAIN:
