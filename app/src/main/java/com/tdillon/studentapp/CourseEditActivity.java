@@ -149,13 +149,24 @@ public class CourseEditActivity extends AppCompatActivity {
     }
 
     public void alertCourse() {
-        Intent intent = new Intent(CourseEditActivity.this, AlertReceiver.class);
-        intent.putExtra("key", "You have a course ending today!");
-        PendingIntent sender = PendingIntent.getBroadcast(CourseEditActivity.this, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        long endDateAlert = Long.parseLong(tvEndMillis.getText().toString());
-        assert alarmManager != null;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, endDateAlert, sender);
+        if(tvEndMillis.getText().toString().equals("-1")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Warning");
+            builder.setMessage("Please select a date using the calendar icon and try again.");
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setNegativeButton("Ok", (dialog, id) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        else {
+            Intent intent = new Intent(CourseEditActivity.this, AlertReceiver.class);
+            intent.putExtra("key", "You have a course ending today!");
+            PendingIntent sender = PendingIntent.getBroadcast(CourseEditActivity.this, 0, intent, 0);
+            AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            long endDateAlert = Long.parseLong(tvEndMillis.getText().toString());
+            assert alarmManager != null;
+            alarmManager.set(AlarmManager.RTC_WAKEUP, endDateAlert, sender);
+        }
     }
 
     @OnClick(R.id.course_edit_start_btn)

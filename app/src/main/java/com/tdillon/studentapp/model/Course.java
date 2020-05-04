@@ -34,20 +34,22 @@ public class Course {
     }
 
     @Ignore
-    public Course(String title, Date startDate, Date expectedEndDate, CourseStatus courseStatus, int termId) {
+    public Course(String title, Date startDate, Date expectedEndDate, CourseStatus courseStatus, String note, int termId) {
         this.title = title;
         this.startDate = startDate;
         this.expectedEndDate = expectedEndDate;
         this.courseStatus = courseStatus;
+        this.note = note;
         this.termId = termId;
     }
 
     //Use this constructor - termID will be set when assigned to a term
-    public Course(String title, Date startDate, Date expectedEndDate, CourseStatus courseStatus) {
+    public Course(String title, Date startDate, Date expectedEndDate, CourseStatus courseStatus, String note) {
         this.title = title;
         this.startDate = startDate;
         this.expectedEndDate = expectedEndDate;
         this.courseStatus = courseStatus;
+        this.note = note;
     }
 
     public int getId() {

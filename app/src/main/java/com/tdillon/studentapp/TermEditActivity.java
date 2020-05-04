@@ -120,18 +120,10 @@ public class TermEditActivity extends AppCompatActivity {
             String termTitle = editorVM.vmLiveTerm.getValue().getTitle();
             if(courseData != null && courseData.size() != 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Delete " + termTitle + "?");
-                builder.setMessage("Are you sure you want to delete term '" + termTitle + "'?" +
-                        "\nIt still has courses assigned to it. You will not delete the courses but " +
-                        "they will not be assigned to any terms if you delete.\nDelete term anyway?");
+                builder.setTitle("Warning");
+                builder.setMessage("This course cannot be deleted because there are courses associated with it. Please remove the associated courses and try again.");
                 builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setPositiveButton("Yes", (dialog, id) -> {
-                    dialog.dismiss();
-                    editorVM.deleteTerm();
-                    finish();
-                });
-                builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
-                builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                builder.setNegativeButton("Ok", (dialog, id) -> dialog.dismiss());
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

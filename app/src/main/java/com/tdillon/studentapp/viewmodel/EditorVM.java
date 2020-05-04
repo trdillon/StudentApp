@@ -88,7 +88,7 @@ public class EditorVM extends AndroidViewModel {
             if(TextUtils.isEmpty(courseTitle.trim())) {
                 return;
             }
-            course = new Course(courseTitle.trim(), startDate, endDate, courseStatus, termId);
+            course = new Course(courseTitle.trim(), startDate, endDate, courseStatus, note, termId);
         }
         else {
             course.setTitle(courseTitle.trim());
