@@ -61,6 +61,9 @@ public class CourseEditActivity extends AppCompatActivity {
     @BindView(R.id.course_edit_note)
     EditText tvNote;
 
+    @BindView(R.id.text_start_millis)
+    EditText tvStartMillis;
+
     @BindView(R.id.text_end_millis)
     EditText tvEndMillis;
 
@@ -79,9 +82,14 @@ public class CourseEditActivity extends AppCompatActivity {
         deleteCourse();
     }
 
-    @OnClick(R.id.fab_alert_course)
-    public void handleAlertBtn(View view) {
-        alertCourse();
+    @OnClick(R.id.fab_alert_start_course)
+    public void handleAlertStartBtn(View view) {
+        alertCourseStart();
+    }
+
+    @OnClick(R.id.fab_alert_end_course)
+    public void handleAlertEndBtn(View view) {
+        alertCourseEnd();
     }
 
     @OnClick(R.id.button_home)
@@ -148,11 +156,32 @@ public class CourseEditActivity extends AppCompatActivity {
         }
     }
 
-    public void alertCourse() {
+    public void alertCourseStart() {
+        if(tvStartMillis.getText().toString().equals("-1")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Warning");
+            builder.setMessage("Please select a start date using the calendar icon and try again.");
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setNegativeButton("Ok", (dialog, id) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        else {
+            Intent intent = new Intent(CourseEditActivity.this, AlertReceiver.class);
+            intent.putExtra("key", "You have a course starting today!");
+            PendingIntent sender = PendingIntent.getBroadcast(CourseEditActivity.this, 0, intent, 0);
+            AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+            long startDateAlert = Long.parseLong(tvStartMillis.getText().toString());
+            assert alarmManager != null;
+            alarmManager.set(AlarmManager.RTC_WAKEUP, startDateAlert, sender);
+        }
+    }
+
+    public void alertCourseEnd() {
         if(tvEndMillis.getText().toString().equals("-1")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Warning");
-            builder.setMessage("Please select a date using the calendar icon and try again.");
+            builder.setMessage("Please select an end date using the calendar icon and try again.");
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setNegativeButton("Ok", (dialog, id) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
@@ -178,6 +207,7 @@ public class CourseEditActivity extends AppCompatActivity {
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
             tvCourseStartDate.setText(TextFormatter.getDateFormatted(myCalendar.getTime()));
+            tvStartMillis.setText(Long.toString(myCalendar.getTimeInMillis()));
         };
         new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
